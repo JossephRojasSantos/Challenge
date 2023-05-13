@@ -18,8 +18,6 @@ EXPOSE 443
 EXPOSE 80
 EXPOSE 8080
 
-
-
 # Define el comando de inicio de la aplicación
 CMD ["./main"]
 
