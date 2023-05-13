@@ -21,5 +21,5 @@ Entorno (Windows) sin Docker
 	 passwordadmin=[passadmin]-> Contraseña en sha512
 	 jwtkey=[jwtkey]-> Contaseña para la firma de token de sesión
 
-Ejemplo de variable de entorno
-(https://github.com/JossephRojasSantos/Challenge/blob/main/png/Variables%20de%20Entorno.png)
+
+![Ejemplo de variable de entorno](https://github.com/JossephRojasSantos/Challenge/blob/main/png/Variables%20de%20Entorno.png){width='100px'}
