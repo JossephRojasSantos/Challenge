@@ -1,17 +1,17 @@
 # Challenge
 
-Resumen:
+## Resumen:
 
 Se ha desarrollado una API en lenguaje Go que se encarga de obtener información de clientes desde un proveedor externo. Esta API procesa y trata los datos para generar disponibilidad, permitiendo que la información sea accesible para los distintos sectores dentro de la empresa, garantizando un acceso controlado y eficiente al contenido
 
-Pasos Iniciales:
+### Pasos Iniciales:
 
-Entorno (Windows) sin Docker
-1. Descargar e instalar PostgresSQL ->  https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe
-2. Confirmar puerto de servicio [port]
-3. Crear Base de Datos [dbname]
-4. Generar usuario de lectura y escritura en la base de datos [dbname] creada en el punto 3 [user][pass]
-5. Descargar e instalar Go -> https://dl.google.com/go/go1.20.4.windows-amd64.msi
+#### Entorno (Windows) sin Docker
+1. Descargar e instalar PostgresSQL ->  [PostgresSQL](https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe)
+2. Confirmar puerto de servicio *[port]*
+3. Crear Base de Datos *[dbname]*
+4. Generar usuario de lectura y escritura en la base de datos *[dbname]* creada en el punto 3 *[user][pass]*
+5. Descargar e instalar Go -> [GO](https://dl.google.com/go/go1.20.4.windows-amd64.msi)
 6. Comprobar instalacion de Go (desde un CMD ejecutar "go version", retorno de la consola -> go version go1.20.4 windows/amd64)
 7. Crear las siguiente variables de entorno:
 
@@ -26,7 +26,8 @@ Entorno (Windows) sin Docker
 
 ![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/Variables%20de%20Entorno.png)
 
-8. Descargamos el presente repositorio, nos ubicamos con un CMD en el proyecto e ingresamos el siguiete comando:
+8. Descargamos el presente repositorio, nos ubicamos con un CMD en el proyecto e ingresamos el siguiente comando:
+```javascript
 go build main.go
-
-9. Dentro de la carpeta del proyecto, ubicamos y ejecutamos como administrador el archivo "main.exe".    
+```
+9. Dentro de la carpeta del proyecto, ubicamos y ejecutamos como administrador el archivo *main.exe*.    
