@@ -1,4 +1,3 @@
 # Challenge
 
-#Docker
-
+Modo de Ejecucion:

@@ -324,7 +324,7 @@ func main() {
 	r2.HandleFunc("/json", Json)
 
 	go func() {
-		_ = http.ListenAndServe(":8080", whitelistMiddleware(r2, whitelist))
+		_ = http.ListenAndServeTLS(":8080", filePathCERT, filePathKEY, whitelistMiddleware(r2, whitelist))
 	}()
 	log.Println("Servidor Corriendo")
 	go func() {
