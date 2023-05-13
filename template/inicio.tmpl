@@ -1,0 +1,36 @@
+{{define "inicio"}}
+{{template "cabecera"}}
+<div class="container">
+	<table class="table table-striped" style="text-align:center;">
+	    <thead class="thead-dark">
+		    <tr>
+			    <th>ID</th>
+			    <th>Nombre de Usuario</th>
+			    <th>Dirección</th>
+			    <th>Color Favorito</th>
+			    <th>Auto</th>
+			    <th>Cantidad de Compras</th>
+			    <th>Información</th>
+		    </tr>
+	    </thead>
+		<tbody>
+		{{range.}}
+		    <tr>
+			    <td>{{.ID}}</td>
+			    <td>{{.UserName}}</td>
+			    <td>{{.Direccion}}</td>
+			    <td>{{.ColorFavorito}}</td>
+			    <td>{{.Auto}}</td>
+			    <td>{{.CantidadComprasRealizadas}}</td>
+			    <td>
+			    <a name="" id="" role="button" href="/info?id={{.ID}}" class="btn btn-info">Info</a>
+			    </td>
+
+		    </tr>
+	    {{end}}
+
+	    </tbody>
+	</table>
+
+{{template "pie"}}
+{{end}}

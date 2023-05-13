@@ -1,0 +1,44 @@
+{{define "info"}}
+{{template "cabecera"}}
+
+		<div class="card" style="width: 30rem;">
+          	{{range.}}
+                <img class="card-img-top" src={{.FotoDni}} alt="Card image cap">
+
+                <div class="card-body">
+                <hr size="2px" color="black" />
+                <div class="card-header"><h2>Información de Usuario</h2></div>
+                <ul class="list-group list-group-flush">
+                <li class}}"list-group-item">Nombre de Usuario: {{.UserName}}</li>
+                <li class}}"list-group-item">Cuenta: {{.CuentaNumero}}</li>
+                <li class}}"list-group-item">Tarjeta de Credito: {{.CreditCardNum}}</li>
+                <li class}}"list-group-item">CCV: {{.CreditCardCcv}}</li>
+                <li class}}"list-group-item">Compras Realizadas: {{.CantidadComprasRealizadas}}</li>
+
+                <div class="card-header"><h4>Ubicación</h4></div>
+                <li class}}"list-group-item">Dirección: {{.Direccion}}</li>
+                <li class}}"list-group-item">Codigo ZIP: {{.CodigoZip}}</li>
+                <li class}}"list-group-item">Localización: {{.GeoLatitud}},{{.GeoLongitud}}</li>
+                <li class}}"list-group-item">Direccion IP: {{.Ip}}</li>
+
+                <div class="card-header"><h4>Datos de Referencia</h4></div>
+                <li class}}"list-group-item">Fecha de Inscripción: {{.FecAlta}}</li>
+                <li class}}"list-group-item">Color Favorito: {{.ColorFavorito}}</li>
+                <li class}}"list-group-item">Fecha de Cumpleaños: {{.FecBirthday}}</li>
+
+                <div class="card-header"><h4>Vehículo</h4></div>
+                <li class}}"list-group-item">Auto: {{.Auto}}</li>
+                <li class}}"list-group-item">Modelo: {{.AutoModelo}}</li>
+                <li class}}"list-group-item">Tipo: {{.AutoTipo}}</li>
+                <li class}}"list-group-item">Color: {{.AutoColor}}</li>
+                {{end}}
+                </ul>
+                <hr size="2px" color="black" />
+           <a name="" id="" role="button" href="/inicio" class="btn btn-danger">Cerrar</a>
+          </div>
+        </div>
+
+</body>
+</html>
+{{end}}
+

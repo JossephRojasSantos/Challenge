@@ -1,0 +1,166 @@
+2023/05/12 23:27:59 Captura de datos de la URL https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios
+2023/05/12 23:27:59 Conectando con Base de Datos
+2023/05/12 23:27:59 Creando (si no existe) la tabla userdata
+2023/05/12 23:27:59 Insertando datos de administrator si no existen en la tabla userdata
+2023/05/12 23:27:59 Conectando con Base de Datos
+2023/05/12 23:27:59 Creando (si no existe) la tabla datos
+2023/05/12 23:27:59 Conectando con Base de Datos
+2023/05/12 23:27:59 Insertando data en la tabla datos
+2023/05/12 23:27:59 Servidor Corriendo
+2023/05/12 23:28:08 Obteniendo Cookie
+2023/05/12 23:28:08 Redirigir por no tener Token JWT
+2023/05/12 23:28:08 Obteniendo Cookie
+2023/05/12 23:28:08 Siguiente Pagina
+2023/05/12 23:29:57 Obteniendo Cookie
+2023/05/12 23:29:57 Usuario Ingresado: administrator
+2023/05/12 23:29:57 Conectando con Base de Datos
+2023/05/12 23:29:57 Removiendo Caracteres Especiales
+2023/05/12 23:29:57 Obteniendo datos Pass y OTP de: administrator
+2023/05/12 23:29:57 OTP Valido
+2023/05/12 23:29:57 Token JWT Generado
+2023/05/12 23:29:57 Cookie Generada
+2023/05/12 23:29:57 Inicio de Sesion Correcto de: administrator
+2023/05/12 23:29:57 Siguiente Pagina
+2023/05/12 23:29:57 Obteniendo Cookie
+2023/05/12 23:29:57 Verificando
+2023/05/12 23:29:57 Conectando con Base de Datos
+2023/05/12 23:29:57 Pagina de Inicio
+2023/05/12 23:29:57 Siguiente Pagina
+2023/05/12 23:30:11 IP Remota: ::1
+2023/05/12 23:31:16 Captura de datos de la URL https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios
+2023/05/12 23:31:16 Conectando con Base de Datos
+2023/05/12 23:31:16 Creando (si no existe) la tabla userdata
+2023/05/12 23:31:16 Insertando datos de administrator si no existen en la tabla userdata
+2023/05/12 23:31:16 Conectando con Base de Datos
+2023/05/12 23:31:16 Creando (si no existe) la tabla datos
+2023/05/12 23:31:16 Conectando con Base de Datos
+2023/05/12 23:31:16 Insertando data en la tabla datos
+2023/05/12 23:31:16 Servidor Corriendo
+2023/05/12 23:31:18 IP Remota: ::1
+2023/05/12 23:31:18 Obteniendo JSON
+2023/05/12 23:31:18 Verificando
+2023/05/12 23:31:18 Valor Invalido en la Variable Token
+2023/05/12 23:31:18 Removiendo Caracteres Especiales
+2023/05/12 23:31:18 Conectando con Base de Datos
+2023/05/12 23:31:39 Obteniendo Cookie
+2023/05/12 23:31:39 Verificando
+2023/05/12 23:31:39 Conectando con Base de Datos
+2023/05/12 23:31:39 Pagina de Informacion
+2023/05/12 23:31:39 Siguiente Pagina
+2023/05/12 23:31:41 Obteniendo Cookie
+2023/05/12 23:31:41 Verificando
+2023/05/12 23:31:41 Conectando con Base de Datos
+2023/05/12 23:31:41 Pagina de Inicio
+2023/05/12 23:31:41 Siguiente Pagina
+2023/05/12 23:31:42 Obteniendo Cookie
+2023/05/12 23:31:42 Verificando
+2023/05/12 23:31:42 Conectando con Base de Datos
+2023/05/12 23:31:42 Pagina de Informacion
+2023/05/12 23:31:42 Siguiente Pagina
+2023/05/13 09:28:53 Captura de datos de la URL https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios
+2023/05/13 09:28:53 Conectando con Base de Datos
+2023/05/13 09:28:53 Creando (si no existe) la tabla userdata
+2023/05/13 09:28:54 Insertando datos de administrator si no existen en la tabla userdata
+2023/05/13 09:28:54 Conectando con Base de Datos
+2023/05/13 09:28:54 Creando (si no existe) la tabla datos
+2023/05/13 09:28:54 Conectando con Base de Datos
+2023/05/13 09:28:54 Insertando data en la tabla datos
+2023/05/13 09:28:54 Servidor Corriendo
+2023/05/13 09:28:57 IP Remota: ::1
+2023/05/13 09:28:57 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:28:57 Obteniendo JSON
+2023/05/13 09:28:57 Verificando
+2023/05/13 09:28:57 Valor Invalidoe n la Variable Token
+2023/05/13 09:28:58 IP Remota: ::1
+2023/05/13 09:28:58 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:28:58 Obteniendo JSON
+2023/05/13 09:28:58 Verificando
+2023/05/13 09:28:58 Valor Invalidoe n la Variable Token
+2023/05/13 09:29:01 IP Remota: ::1
+2023/05/13 09:29:01 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:29:01 Obteniendo JSON
+2023/05/13 09:29:01 Verificando
+2023/05/13 09:29:01 Valor Invalidoe n la Variable Token
+2023/05/13 09:29:02 IP Remota: ::1
+2023/05/13 09:29:02 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:29:02 Obteniendo JSON
+2023/05/13 09:29:02 Verificando
+2023/05/13 09:29:02 Valor Invalidoe n la Variable Token
+2023/05/13 09:29:02 IP Remota: ::1
+2023/05/13 09:29:02 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:29:02 Obteniendo JSON
+2023/05/13 09:29:02 Verificando
+2023/05/13 09:29:02 Valor Invalidoe n la Variable Token
+2023/05/13 09:29:06 IP Remota: ::1
+2023/05/13 09:29:06 Acceso Permitido, ::1 en Whitelist
+2023/05/13 09:29:06 Obteniendo JSON
+2023/05/13 09:29:06 Verificando
+2023/05/13 09:29:06 Valor Invalidoe n la Variable Token
+2023/05/13 10:01:58 IP Remota: ::1
+2023/05/13 10:01:58 Acceso Permitido, ::1 en Whitelist
+2023/05/13 12:06:11 Captura de datos de la URL https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios
+2023/05/13 12:06:11 Conectando con Base de Datos
+2023/05/13 12:06:11 Creando (si no existe) la tabla userdata
+2023/05/13 12:06:11 Insertando datos de administrator si no existen en la tabla userdata
+2023/05/13 12:06:11 Conectando con Base de Datos
+2023/05/13 12:06:11 Creando (si no existe) la tabla datos
+2023/05/13 12:06:12 Conectando con Base de Datos
+2023/05/13 12:06:12 Insertando data en la tabla datos
+2023/05/13 12:06:12 Servidor Corriendo
+2023/05/13 12:06:24 Obteniendo Cookie
+2023/05/13 12:06:24 Siguiente Pagina
+2023/05/13 12:09:06 Captura de datos de la URL https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios
+2023/05/13 12:09:06 Conectando con Base de Datos
+2023/05/13 12:09:06 Creando (si no existe) la tabla userdata
+2023/05/13 12:09:06 Insertando datos de administrator si no existen en la tabla userdata
+2023/05/13 12:09:06 Conectando con Base de Datos
+2023/05/13 12:09:06 Creando (si no existe) la tabla datos
+2023/05/13 12:09:06 Conectando con Base de Datos
+2023/05/13 12:09:06 Insertando data en la tabla datos
+2023/05/13 12:09:06 Servidor Corriendo
+2023/05/13 12:09:11 Obteniendo Cookie
+2023/05/13 12:09:11 Siguiente Pagina
+2023/05/13 12:09:12 Obteniendo Cookie
+2023/05/13 12:09:12 Siguiente Pagina
+2023/05/13 12:09:12 Obteniendo Cookie
+2023/05/13 12:09:12 Siguiente Pagina
+2023/05/13 12:09:13 Obteniendo Cookie
+2023/05/13 12:09:13 Siguiente Pagina
+2023/05/13 12:09:13 Obteniendo Cookie
+2023/05/13 12:09:13 Siguiente Pagina
+2023/05/13 12:09:13 Obteniendo Cookie
+2023/05/13 12:09:13 Siguiente Pagina
+2023/05/13 12:09:13 Obteniendo Cookie
+2023/05/13 12:09:13 Siguiente Pagina
+2023/05/13 12:09:13 Obteniendo Cookie
+2023/05/13 12:09:13 Siguiente Pagina
+2023/05/13 12:09:46 Obteniendo Cookie
+2023/05/13 12:09:46 Usuario Ingresado: administrator
+2023/05/13 12:09:46 Conectando con Base de Datos
+2023/05/13 12:09:46 Removiendo Caracteres Especiales
+2023/05/13 12:09:46 Obteniendo datos Pass y OTP de: administrator
+2023/05/13 12:09:46 OTP Valido
+2023/05/13 12:09:46 Token JWT Generado
+2023/05/13 12:09:46 Cookie Generada
+2023/05/13 12:09:46 Inicio de Sesion Correcto de: administrator
+2023/05/13 12:09:46 Siguiente Pagina
+2023/05/13 12:09:46 Obteniendo Cookie
+2023/05/13 12:09:46 Verificando
+2023/05/13 12:09:46 Conectando con Base de Datos
+2023/05/13 12:09:46 Pagina de Inicio
+2023/05/13 12:09:46 Siguiente Pagina
+2023/05/13 12:09:48 Obteniendo Cookie
+2023/05/13 12:09:48 Verificando
+2023/05/13 12:09:48 Conectando con Base de Datos
+2023/05/13 12:09:48 Pagina de Informacion
+2023/05/13 12:09:48 Siguiente Pagina
+2023/05/13 12:09:50 Obteniendo Cookie
+2023/05/13 12:09:50 Verificando
+2023/05/13 12:09:50 Conectando con Base de Datos
+2023/05/13 12:09:50 Pagina de Inicio
+2023/05/13 12:09:50 Siguiente Pagina
+2023/05/13 12:09:52 Obteniendo Cookie
+2023/05/13 12:09:52 Verificando
+2023/05/13 12:09:52 Conectando con Base de Datos
+2023/05/13 12:09:52 Pagina de Informacion
+2023/05/13 12:09:52 Siguiente Pagina
