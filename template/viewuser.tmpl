@@ -1,0 +1,30 @@
+{{define "viewuser"}}
+{{template "cabecera"}}
+<div class="container">
+	<td><a class="btn btn-success" href="/createuser" role="button">Crear Usuario</a></td>
+
+	<table class="table table-striped" style="text-align:center;">
+	    <thead class="thead-dark">
+		    <tr>
+			    <th>ID</th>
+			    <th>Nombre de Usuario</th>
+			    <th>Token OTP</th>
+			    <th>Rol</th>
+			    <th>Acción</th>
+			 </tr>
+	    </thead>
+		<tbody>
+		{{range.}}
+		    <tr>
+			    <td>{{.IDuser}}</td>
+			    <td>{{.UserName}}</td>
+			    <td>{{.TokenMFA}}</td>
+			    <td>{{.Rol}}</td>
+			    <td><a class="btn btn-danger" href="/borrar?id={{.IDuser}}&user={{.UserName}}" role="button">Eliminar</a></td>
+		    </tr>
+	    {{end}}
+
+	    </tbody>
+	</table>
+{{template "pie"}}
+{{end}}

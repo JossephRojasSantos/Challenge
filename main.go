@@ -80,6 +80,12 @@ type Table struct {
 	Avatar                    string
 	FecBirthday               string
 }
+type User struct {
+	IDuser   int
+	UserName string
+	TokenMFA string
+	Rol      int
+}
 
 var (
 	host                      = os.Getenv("host")
@@ -95,6 +101,8 @@ var (
 	jsonview                  []Jsonview
 	data                      []Data
 	table                     = Table{}
+	userview                  = User{}
+	userviewtable             []User
 	arraytable                []Table
 	arraytable2               []Table
 	url                       = "https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios"
@@ -125,6 +133,8 @@ var (
 	filePathKEY               string
 	filePathCERT              string
 	whitelist                 []string
+	TokenMFA                  string
+	Rol                       int
 )
 
 func Err(err2 error) {
@@ -294,8 +304,8 @@ func VerificarOTP(secretKey, otpCode string) bool {
 	return true
 }
 
-func redirectToHttps(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://localhost:443"+r.RequestURI, http.StatusMovedPermanently)
+func redirectToHttps(writer http.ResponseWriter, request *http.Request) {
+	http.Redirect(writer, request, "https://localhost:443"+request.RequestURI, http.StatusMovedPermanently)
 	log.Println("Redireccion a HTTPS")
 }
 
@@ -317,12 +327,19 @@ func main() {
 	r := mux.NewRouter()
 	r.Use(authMiddleware)
 	r2 := mux.NewRouter()
+	r3 := mux.NewRouter()
 
 	r.HandleFunc("/", Login)
 	r.HandleFunc("/inicio", Inicio)
 	r.HandleFunc("/info", Informacion)
 	r2.HandleFunc("/json", Json)
+	r3.HandleFunc("/viewuser", ViewUser)
+	r3.HandleFunc("/createuser", CreateUser)
+	r3.HandleFunc("/borrar", BorrarUser)
 
+	go func() {
+		_ = http.ListenAndServeTLS(":8081", filePathCERT, filePathKEY, r3)
+	}()
 	go func() {
 		_ = http.ListenAndServeTLS(":8080", filePathCERT, filePathKEY, whitelistMiddleware(r2, whitelist))
 	}()
@@ -426,6 +443,66 @@ func CrearTablaUsuarios() {
 		Err(err)
 	}
 
+}
+func CreateUser(writer http.ResponseWriter, request *http.Request) {
+	if request.Method == "POST" {
+		db := ConexionDB()
+		defer func(db *sql.DB) {
+			_ = db.Close()
+		}(db)
+		username := request.FormValue("username")
+		password := request.FormValue("password")
+		rol := request.FormValue("rol")
+		passwordhash := Hash(password)
+		log.Println("Insertando data en la tabla userdata")
+
+		tokenmfa, err := generateSecretKey(username)
+		Err(err)
+		query := fmt.Sprintf("INSERT INTO userdata (username,password,tokenmfa,rol) VALUES ('%s','%s','%s','%s')",
+			username, passwordhash, tokenmfa, rol)
+		_, err = db.Exec(query)
+		log.Printf("Creando: %s", username)
+		Err(err)
+
+	}
+	_ = tmpl.ExecuteTemplate(writer, "createuser", nil)
+}
+func ViewUser(writer http.ResponseWriter, _ *http.Request) {
+	db := ConexionDB()
+	defer func(db *sql.DB) {
+		_ = db.Close()
+	}(db)
+	log.Println("Consultando Usuarios")
+
+	userviewtable = nil
+	registros, err := db.Query("Select id,username,tokenmfa,rol  From userdata")
+	Err(err)
+	for registros.Next() {
+		err = registros.Scan(&ID, &UserName, &TokenMFA, &Rol)
+		Err(err)
+		userview.IDuser = ID
+		userview.UserName = UserName
+		userview.TokenMFA = TokenMFA
+		userview.Rol = Rol
+		userviewtable = append(userviewtable, userview)
+
+	}
+
+	_ = tmpl.ExecuteTemplate(writer, "viewuser", userviewtable)
+
+}
+
+func BorrarUser(writer http.ResponseWriter, request *http.Request) {
+	idDato := request.URL.Query().Get("id")
+	usuarioborrado := request.URL.Query().Get("user")
+	db := ConexionDB()
+	defer func(db *sql.DB) {
+		_ = db.Close()
+	}(db)
+	_, err := db.Query("DELETE FROM userdata where id = $1", idDato)
+	Err(err)
+	log.Printf("Usuario %s Borrado", usuarioborrado)
+	http.Redirect(writer, request, "https://localhost:8081/viewuser", http.StatusMovedPermanently)
 }
 func ConsultarTablaUsuarios(u string) (p string, t string) {
 	db := ConexionDB()

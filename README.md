@@ -69,6 +69,8 @@ go build main.go
 9. Dentro de la carpeta del proyecto, ubicamos y ejecutamos como administrador el archivo **main.exe**.    
 10. Ingresamos por medio de un navegador a **https://localhost/**
 
+**Nota:** Es necesario ejercutar el binario como administrador (Punto 9) para obterner los valores de las variables de entorno configuradas en windows
+
 ### Modo de Operación 
 
 ------
