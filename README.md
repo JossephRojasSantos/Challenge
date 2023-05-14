@@ -60,7 +60,7 @@ docker run -p 8080:8080 -p 443:443 -p 80:80 servidor:Challenge
 ![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/Variables%20de%20Entorno.png)
 
 8. Descargamos el presente repositorio, nos ubicamos con un CMD en el proyecto e ingresamos el siguiente comando:
-```javascript
+```go
 go build main.go
 ```
 9. Dentro de la carpeta del proyecto, ubicamos y ejecutamos como administrador el archivo **main.exe**.    
