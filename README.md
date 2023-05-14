@@ -28,7 +28,7 @@ Se ha desarrollado una API en lenguaje Go que se encarga de obtener información
 ![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/ENVDockerFile.png)
 
 8. Descargamos el presente repositorio, nos ubicamos con un CMD en el proyecto e ingresamos los siguientes comandos:
-```javascript
+```docker
 docker build -t servidor:Challenge .
 ```
 ```javascript
