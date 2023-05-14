@@ -1,0 +1,706 @@
+digraph gocallvis {
+    label="Challenge";
+    labeljust="l";
+    fontname="Arial";
+    fontsize="14";
+    rankdir="LR";
+    bgcolor="lightgray";
+    style="solid";
+    penwidth="0.5";
+    pad="0.0";
+    nodesep="0.35";
+
+    node [shape="box" style="filled,rounded" fillcolor="honeydew" fontname="Verdana" penwidth="1.0" margin="0.05,0.0"];
+    edge [minlen="2"]
+
+    subgraph "cluster_focus" {
+        bgcolor="#e6ecfa";
+label="main";
+labelloc="t";
+labeljust="c";
+fontsize="18";
+        
+        "Challenge.Json$1" [ style="dotted,filled" tooltip="Challenge.Json$1 | defined in main.go:708\nat main.go:711: calling [fmt.Errorf]\nat main.go:709: calling [log.Println]" fillcolor="lightblue" label="Json$1" ]
+        "Challenge.authMiddleware$1$1" [ fillcolor="lightblue" label="authMiddleware$1$1" style="dotted,filled" tooltip="Challenge.authMiddleware$1$1 | defined in main.go:254\nat main.go:256: calling [log.Println]\nat main.go:258: calling [fmt.Errorf]" ]
+        "Challenge.Ofuscar" [ tooltip="Challenge.Ofuscar | defined in main.go:153\nat main.go:156: calling [strings.Repeat]\nat main.go:155: calling [strings.ReplaceAll]" fillcolor="lightblue" label="Ofuscar" penwidth="1.5" ]
+        "Challenge.CreateUser" [ fillcolor="lightblue" label="CreateUser" penwidth="1.5" tooltip="Challenge.CreateUser | defined in main.go:458\nat main.go:461: calling [Challenge.ConexionDB]\nat main.go:462: calling [Challenge.CreateUser$1]\nat main.go:471: calling [Challenge.generateSecretKey]\nat main.go:465: calling [(*net/http.Request).FormValue]\nat main.go:466: calling [(*net/http.Request).FormValue]\nat main.go:467: calling [(*net/http.Request).FormValue]\nat main.go:468: calling [Challenge.Hash]\nat main.go:472: calling [Challenge.Err]\nat main.go:477: calling [Challenge.Err]\nat main.go:476: calling [log.Printf]\nat main.go:473: calling [fmt.Sprintf]\nat main.go:480: calling [(*text/template.Template).ExecuteTemplate]\nat main.go:482: calling [net/http.Error]\nat main.go:483: calling [log.Println]\nat main.go:469: calling [log.Println]\nat main.go:475: calling [(*database/sql.DB).Exec]" ]
+        "Challenge.ConexionDB" [ penwidth="1.5" tooltip="Challenge.ConexionDB | defined in main.go:147\nat main.go:148: calling [database/sql.Open]\nat main.go:149: calling [log.Println]\nat main.go:150: calling [Challenge.Err]" fillcolor="lightblue" label="ConexionDB" ]
+        "Challenge.Err" [ fillcolor="lightblue" label="Err" penwidth="1.5" tooltip="Challenge.Err | defined in main.go:142\nat main.go:144: calling [log.Println]" ]
+        "Challenge.CreateUser$1" [ label="CreateUser$1" style="dotted,filled" tooltip="Challenge.CreateUser$1 | defined in main.go:462\nat main.go:463: calling [(*database/sql.DB).Close]" fillcolor="lightblue" ]
+        "Challenge.Hash" [ fillcolor="lightblue" label="Hash" penwidth="1.5" tooltip="Challenge.Hash | defined in main.go:160\nat main.go:161: calling [crypto/sha512.Sum512]\nat main.go:162: calling [encoding/hex.EncodeToString]" ]
+        "Challenge.generateSecretKey" [ penwidth="0.5" tooltip="Challenge.generateSecretKey | defined in main.go:304\nat main.go:311: calling [(*github.com/pquerna/otp.Key).Secret]\nat main.go:312: calling [(*github.com/pquerna/otp.Key).Secret]\nat main.go:314: calling [(*github.com/pquerna/otp.Key).Secret]\nat main.go:313: calling [log.Println]\nat main.go:305: calling [github.com/pquerna/otp/totp.Generate]\nat main.go:309: calling [Challenge.Err]" fillcolor="lightblue" label="generateSecretKey" ]
+        "Challenge.Login" [ fillcolor="lightblue" label="Login" penwidth="1.5" tooltip="Challenge.Login | defined in main.go:205\nat main.go:217: calling [Challenge.GenerarSessionCookie]\nat main.go:214: calling [Challenge.VerificarOTP]\nat main.go:236: calling [(*text/template.Template).ExecuteTemplate]\nat main.go:220: calling [Challenge.Err]\nat main.go:226: calling [Challenge.Err]\nat main.go:212: calling [Challenge.ConsultarTablaUsuarios]\nat main.go:221: calling [net/http.Redirect]\nat main.go:227: calling [net/http.Redirect]\nat main.go:233: calling [log.Println]\nat main.go:211: calling [Challenge.Hash]\nat main.go:210: calling [log.Printf]\nat main.go:222: calling [log.Printf]\nat main.go:228: calling [log.Printf]\nat main.go:219: calling [net/http.SetCookie]\nat main.go:225: calling [net/http.SetCookie]\nat main.go:232: calling [net/http.Error]\nat main.go:207: calling [(*net/http.Request).FormValue]\nat main.go:208: calling [(*net/http.Request).FormValue]\nat main.go:209: calling [(*net/http.Request).FormValue]" ]
+        "Challenge.ConsultarTablaUsuarios" [ fillcolor="lightblue" label="ConsultarTablaUsuarios" penwidth="1.5" tooltip="Challenge.ConsultarTablaUsuarios | defined in main.go:532\nat main.go:548: calling [(*database/sql.Rows).Scan]\nat main.go:547: calling [(*database/sql.Rows).Next]\nat main.go:543: calling [log.Printf]\nat main.go:552: calling [fmt.Sprintf]\nat main.go:553: calling [fmt.Sprintf]\nat main.go:554: calling [fmt.Sprintf]\nat main.go:533: calling [Challenge.ConexionDB]\nat main.go:544: calling [(*database/sql.DB).Query]\nat main.go:534: calling [Challenge.ConsultarTablaUsuarios$1]\nat main.go:545: calling [Challenge.Err]\nat main.go:549: calling [Challenge.Err]\nat main.go:538: calling [Challenge.RemoverCaracteresEspeciales]\nat main.go:554: calling [strconv.Itoa]" ]
+        "Challenge.ConsultarTablaUsuarios$1" [ tooltip="Challenge.ConsultarTablaUsuarios$1 | defined in main.go:534\nat main.go:535: calling [(*database/sql.DB).Close]" fillcolor="lightblue" label="ConsultarTablaUsuarios$1" style="dotted,filled" ]
+        "Challenge.RemoverCaracteresEspeciales" [ label="RemoverCaracteresEspeciales" penwidth="1.5" tooltip="Challenge.RemoverCaracteresEspeciales | defined in main.go:166\nat main.go:170: calling [log.Println]\nat main.go:168: calling [regexp.MustCompile]\nat main.go:169: calling [(*regexp.Regexp).ReplaceAllString]" fillcolor="lightblue" ]
+        "Challenge.VerificarOTP" [ fillcolor="lightblue" label="VerificarOTP" penwidth="1.5" tooltip="Challenge.VerificarOTP | defined in main.go:316\nat main.go:323: calling [log.Println]\nat main.go:317: calling [github.com/pquerna/otp/totp.Validate]" ]
+        "Challenge.GenerarTokenJWT" [ tooltip="Challenge.GenerarTokenJWT | defined in main.go:190\nat main.go:202: calling [log.Println]\nat main.go:200: calling [(*github.com/golang-jwt/jwt.Token).SignedString]\nat main.go:192: calling [github.com/golang-jwt/jwt.New]\nat main.go:198: calling [time.Now]\nat main.go:198: calling [(time.Time).Add]\nat main.go:201: calling [Challenge.Err]\nat main.go:198: calling [(time.Time).Unix]" fillcolor="lightblue" label="GenerarTokenJWT" penwidth="1.5" ]
+        "Challenge.GenerarSessionCookie" [ tooltip="Challenge.GenerarSessionCookie | defined in main.go:173\nat main.go:175: calling [Challenge.GenerarTokenJWT]\nat main.go:184: calling [time.Now]\nat main.go:187: calling [log.Println]\nat main.go:184: calling [(time.Time).Add]\nat main.go:176: calling [Challenge.Err]" fillcolor="lightblue" label="GenerarSessionCookie" penwidth="1.5" ]
+        "Challenge.Inicio" [ penwidth="1.5" tooltip="Challenge.Inicio | defined in main.go:606\nat main.go:613: calling [(*database/sql.DB).Query]\nat main.go:646: calling [(*text/template.Template).ExecuteTemplate]\nat main.go:615: calling [log.Println]\nat main.go:649: calling [log.Println]\nat main.go:617: calling [(*database/sql.Rows).Scan]\nat main.go:609: calling [Challenge.Inicio$1]\nat main.go:648: calling [net/http.Error]\nat main.go:616: calling [(*database/sql.Rows).Next]\nat main.go:608: calling [Challenge.ConexionDB]\nat main.go:614: calling [Challenge.Err]\nat main.go:618: calling [Challenge.Err]" fillcolor="lightblue" label="Inicio" ]
+        "Challenge.Inicio$1" [ label="Inicio$1" style="dotted,filled" tooltip="Challenge.Inicio$1 | defined in main.go:609\nat main.go:610: calling [(*database/sql.DB).Close]" fillcolor="lightblue" ]
+        "Challenge.Informacion" [ fillcolor="lightblue" label="Informacion" penwidth="1.5" tooltip="Challenge.Informacion | defined in main.go:652\nat main.go:654: calling [(net/url.Values).Get]\nat main.go:656: calling [Challenge.ConexionDB]\nat main.go:666: calling [(*database/sql.Rows).Scan]\nat main.go:657: calling [Challenge.Informacion$1]\nat main.go:665: calling [(*database/sql.Rows).Next]\nat main.go:695: calling [net/http.Error]\nat main.go:661: calling [(*database/sql.DB).Query]\nat main.go:654: calling [(*net/url.URL).Query]\nat main.go:693: calling [(*text/template.Template).ExecuteTemplate]\nat main.go:664: calling [log.Println]\nat main.go:696: calling [log.Println]\nat main.go:662: calling [Challenge.Err]\nat main.go:667: calling [Challenge.Err]" ]
+        "Challenge.Informacion$1" [ style="dotted,filled" tooltip="Challenge.Informacion$1 | defined in main.go:657\nat main.go:658: calling [(*database/sql.DB).Close]" fillcolor="lightblue" label="Informacion$1" ]
+        "Challenge.Json" [ fillcolor="lightblue" label="Json" penwidth="1.5" tooltip="Challenge.Json | defined in main.go:699\nat main.go:763: calling [encoding/json.Marshal]\nat main.go:702: calling [log.Println]\nat main.go:704: calling [log.Println]\nat main.go:718: calling [log.Println]\nat main.go:769: calling [log.Println]\nat main.go:724: calling [log.Println]\nat main.go:729: calling [log.Println]\nat main.go:731: calling [log.Printf]\nat main.go:705: calling [fmt.Fprintf]\nat main.go:765: calling [fmt.Fprintf]\nat main.go:700: calling [(*net/url.URL).Query]\nat main.go:701: calling [(*net/url.URL).Query]\nat main.go:742: calling [Challenge.Err]\nat main.go:751: calling [Challenge.Err]\nat main.go:764: calling [Challenge.Err]\nat main.go:741: calling [(*database/sql.DB).Query]\nat main.go:700: calling [(net/url.Values).Get]\nat main.go:701: calling [(net/url.Values).Get]\nat main.go:750: calling [(*database/sql.Rows).Scan]\nat main.go:736: calling [Challenge.ConexionDB]\nat main.go:708: calling [github.com/golang-jwt/jwt.Parse]\nat main.go:734: calling [Challenge.RemoverCaracteresEspeciales]\nat main.go:749: calling [(*database/sql.Rows).Next]\nat main.go:768: calling [net/http.Error]\nat main.go:737: calling [Challenge.Json$2]\nat main.go:743: calling [Challenge.Json$3]" ]
+        "Challenge.Json$2" [ style="dotted,filled" tooltip="Challenge.Json$2 | defined in main.go:737\nat main.go:738: calling [(*database/sql.DB).Close]" fillcolor="lightblue" label="Json$2" ]
+        "Challenge.Json$3" [ fillcolor="lightblue" label="Json$3" style="dotted,filled" tooltip="Challenge.Json$3 | defined in main.go:743\nat main.go:744: calling [(*database/sql.Rows).Close]" ]
+        "Challenge.ViewUser" [ fillcolor="lightblue" label="ViewUser" penwidth="1.5" tooltip="Challenge.ViewUser | defined in main.go:486\nat main.go:488: calling [Challenge.ConexionDB]\nat main.go:498: calling [(*database/sql.Rows).Scan]\nat main.go:507: calling [(*text/template.Template).ExecuteTemplate]\nat main.go:492: calling [log.Println]\nat main.go:510: calling [log.Println]\nat main.go:495: calling [(*database/sql.DB).Query]\nat main.go:489: calling [Challenge.ViewUser$1]\nat main.go:496: calling [Challenge.Err]\nat main.go:499: calling [Challenge.Err]\nat main.go:497: calling [(*database/sql.Rows).Next]\nat main.go:509: calling [net/http.Error]" ]
+        "Challenge.ViewUser$1" [ tooltip="Challenge.ViewUser$1 | defined in main.go:489\nat main.go:490: calling [(*database/sql.DB).Close]" fillcolor="lightblue" label="ViewUser$1" style="dotted,filled" ]
+        "Challenge.BorrarUser" [ label="BorrarUser" penwidth="1.5" tooltip="Challenge.BorrarUser | defined in main.go:513\nat main.go:529: calling [log.Println]\nat main.go:518: calling [Challenge.BorrarUser$1]\nat main.go:515: calling [(*net/url.URL).Query]\nat main.go:516: calling [(*net/url.URL).Query]\nat main.go:517: calling [Challenge.ConexionDB]\nat main.go:528: calling [net/http.Error]\nat main.go:515: calling [(net/url.Values).Get]\nat main.go:516: calling [(net/url.Values).Get]\nat main.go:525: calling [net/http.Redirect]\nat main.go:522: calling [(*database/sql.DB).Query]\nat main.go:524: calling [log.Printf]\nat main.go:523: calling [Challenge.Err]" fillcolor="lightblue" ]
+        "Challenge.BorrarUser$1" [ fillcolor="lightblue" label="BorrarUser$1" style="dotted,filled" tooltip="Challenge.BorrarUser$1 | defined in main.go:518\nat main.go:519: calling [(*database/sql.DB).Close]" ]
+        "Challenge.redirectToHttps" [ fillcolor="lightblue" label="redirectToHttps" penwidth="0.5" tooltip="Challenge.redirectToHttps | defined in main.go:326\nat main.go:328: calling [log.Println]\nat main.go:327: calling [net/http.Redirect]" ]
+        "Challenge.authMiddleware$1" [ fillcolor="lightblue" label="authMiddleware$1" style="dotted,filled" tooltip="Challenge.authMiddleware$1 | defined in main.go:239\nat main.go:247: calling [net/http.Redirect]\nat main.go:265: calling [net/http.Redirect]\nat main.go:271: calling [net/http.Redirect]\nat main.go:242: calling [(*net/http.Request).Cookie]\nat main.go:287: calling [(*net/http.redirectHandler).ServeHTTP]\nat main.go:243: calling [log.Println]\nat main.go:289: calling [log.Println]\nat main.go:248: calling [log.Println]\nat main.go:266: calling [log.Println]\nat main.go:272: calling [log.Println]\nat main.go:277: calling [log.Println]\nat main.go:282: calling [log.Println]\nat main.go:254: calling [github.com/golang-jwt/jwt.Parse]\nat main.go:284: calling [log.Printf]\nat main.go:287: calling [(net/http.HandlerFunc).ServeHTTP]" ]
+        "Challenge.ObtenerIP" [ fillcolor="lightblue" label="ObtenerIP" penwidth="1.5" tooltip="Challenge.ObtenerIP | defined in main.go:781\nat main.go:784: calling [strings.Split]\nat main.go:782: calling [(net/http.Header).Get]\nat main.go:786: calling [net.SplitHostPort]" ]
+        "Challenge.whitelistMiddleware$1" [ fillcolor="lightblue" label="whitelistMiddleware$1" style="dotted,filled" tooltip="Challenge.whitelistMiddleware$1 | defined in main.go:293\nat main.go:294: calling [Challenge.ObtenerIP]\nat main.go:295: calling [log.Printf]\nat main.go:301: calling [(*github.com/gorilla/mux.Router).ServeHTTP]\nat main.go:297: calling [net/http.Error]\nat main.go:296: calling [Challenge.VerificarIPenWhiteList]" ]
+        "Challenge.VerificarIPenWhiteList" [ fillcolor="lightblue" label="VerificarIPenWhiteList" penwidth="1.5" tooltip="Challenge.VerificarIPenWhiteList | defined in main.go:792\nat main.go:805: calling [log.Printf]\nat main.go:801: calling [log.Printf]" ]
+        "Challenge.authMiddleware" [ fillcolor="lightblue" label="authMiddleware" penwidth="0.5" tooltip="Challenge.authMiddleware | defined in main.go:238" ]
+        "Challenge.init" [ fillcolor="lightblue" label="init" penwidth="0.5" tooltip="Challenge.init | defined in .:0\nat main.go:46: calling [text/template.Must]\nat main.go:28: calling [os.Getenv]\nat main.go:29: calling [os.Getenv]\nat main.go:30: calling [os.Getenv]\nat main.go:31: calling [os.Getenv]\nat main.go:32: calling [os.Getenv]\nat main.go:33: calling [os.Getenv]\nat main.go:34: calling [os.Getenv]\nat main.go:35: calling [os.Getenv]\nat main.go:36: calling [fmt.Sprintf]\nat main.go:46: calling [text/template.ParseGlob]" ]
+        "Challenge.main" [ penwidth="0.5" tooltip="Challenge.main | defined in main.go:330\nat main.go:357: calling [Challenge.main$2]\nat main.go:339: calling [Challenge.ObtenerDatos]\nat main.go:334: calling [Challenge.main$1]\nat main.go:341: calling [Challenge.CrearTablaDatos]\nat main.go:345: calling [github.com/gorilla/mux.NewRouter]\nat main.go:347: calling [github.com/gorilla/mux.NewRouter]\nat main.go:360: calling [log.Println]\nat main.go:342: calling [Challenge.InsertarDatos]\nat main.go:333: calling [Challenge.Err]\nat main.go:332: calling [os.OpenFile]\nat main.go:340: calling [Challenge.CrearTablaUsuarios]\nat main.go:361: calling [Challenge.main$3]\nat main.go:346: calling [(*github.com/gorilla/mux.Router).Use]\nat main.go:337: calling [log.SetOutput]\nat main.go:343: calling [Challenge.Certificados]\nat main.go:349: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:350: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:351: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:352: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:353: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:354: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:355: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:364: calling [net/http.ListenAndServe]" fillcolor="lightblue" label="main" ]
+        "Challenge.main$1" [ fillcolor="lightblue" label="main$1" style="dotted,filled" tooltip="Challenge.main$1 | defined in main.go:334\nat main.go:335: calling [(*os.File).Close]" ]
+        "Challenge.ObtenerDatos" [ fillcolor="lightblue" label="ObtenerDatos" penwidth="1.5" tooltip="Challenge.ObtenerDatos | defined in main.go:367\nat main.go:369: calling [Challenge.Err]\nat main.go:375: calling [Challenge.Err]\nat main.go:378: calling [Challenge.Err]\nat main.go:370: calling [Challenge.ObtenerDatos$1]\nat main.go:374: calling [io/ioutil.ReadAll]\nat main.go:368: calling [net/http.Get]\nat main.go:376: calling [log.Printf]\nat main.go:377: calling [encoding/json.Unmarshal]" ]
+        "Challenge.ObtenerDatos$1" [ fillcolor="lightblue" label="ObtenerDatos$1" style="dotted,filled" tooltip="Challenge.ObtenerDatos$1 | defined in main.go:370\nat main.go:371: calling [(net/http.http2missingBody).Close]\nat main.go:371: calling [(*net/http.bodyEOFSignal).Close]\nat main.go:371: calling [(*net.conn).Close]\nat main.go:371: calling [(*net/http.cancelTimerBody).Close]\nat main.go:371: calling [(net/http.http2transportResponseBody).Close]\nat main.go:371: calling [(io.nopCloserWriterTo).Close]\nat main.go:371: calling [(*net/http.body).Close]\nat main.go:371: calling [(io.nopCloser).Close]\nat main.go:371: calling [(*net/http.gzipReader).Close]\nat main.go:371: calling [(net/http.noBody).Close]\nat main.go:371: calling [(net/http.http2noBodyReader).Close]\nat main.go:371: calling [(*net/http.http2gzipReader).Close]\nat main.go:371: calling [(*crypto/tls.Conn).Close]" ]
+        "Challenge.CrearTablaUsuarios" [ fillcolor="lightblue" label="CrearTablaUsuarios" penwidth="1.5" tooltip="Challenge.CrearTablaUsuarios | defined in main.go:414\nat main.go:435: calling [(*database/sql.Rows).Scan]\nat main.go:428: calling [Challenge.Err]\nat main.go:436: calling [Challenge.Err]\nat main.go:443: calling [Challenge.Err]\nat main.go:448: calling [Challenge.Err]\nat main.go:454: calling [Challenge.Err]\nat main.go:442: calling [Challenge.generateSecretKey]\nat main.go:419: calling [log.Println]\nat main.go:427: calling [(*database/sql.DB).Exec]\nat main.go:446: calling [(*database/sql.DB).Exec]\nat main.go:453: calling [(*database/sql.DB).Exec]\nat main.go:415: calling [Challenge.ConexionDB]\nat main.go:439: calling [fmt.Sprintf]\nat main.go:444: calling [fmt.Sprintf]\nat main.go:451: calling [fmt.Sprintf]\nat main.go:434: calling [(*database/sql.Rows).Next]\nat main.go:432: calling [(*database/sql.DB).Query]\nat main.go:440: calling [log.Printf]\nat main.go:447: calling [log.Printf]\nat main.go:452: calling [log.Printf]\nat main.go:416: calling [Challenge.CrearTablaUsuarios$1]" ]
+        "Challenge.CrearTablaUsuarios$1" [ fillcolor="lightblue" label="CrearTablaUsuarios$1" style="dotted,filled" tooltip="Challenge.CrearTablaUsuarios$1 | defined in main.go:416\nat main.go:417: calling [(*database/sql.DB).Close]" ]
+        "Challenge.CrearTablaDatos" [ tooltip="Challenge.CrearTablaDatos | defined in main.go:380\nat main.go:412: calling [Challenge.Err]\nat main.go:381: calling [Challenge.ConexionDB]\nat main.go:385: calling [log.Println]\nat main.go:382: calling [Challenge.CrearTablaDatos$1]\nat main.go:411: calling [(*database/sql.DB).Exec]" fillcolor="lightblue" label="CrearTablaDatos" penwidth="1.5" ]
+        "Challenge.CrearTablaDatos$1" [ label="CrearTablaDatos$1" style="dotted,filled" tooltip="Challenge.CrearTablaDatos$1 | defined in main.go:382\nat main.go:383: calling [(*database/sql.DB).Close]" fillcolor="lightblue" ]
+        "Challenge.InsertarDatos" [ label="InsertarDatos" penwidth="1.5" tooltip="Challenge.InsertarDatos | defined in main.go:558\nat main.go:574: calling [strings.ReplaceAll]\nat main.go:571: calling [Challenge.Ofuscar]\nat main.go:572: calling [Challenge.Ofuscar]\nat main.go:567: calling [log.Println]\nat main.go:565: calling [(*database/sql.DB).Exec]\nat main.go:600: calling [(*database/sql.DB).Exec]\nat main.go:560: calling [Challenge.ConexionDB]\nat main.go:577: calling [fmt.Sprintf]\nat main.go:566: calling [Challenge.Err]\nat main.go:601: calling [Challenge.Err]\nat main.go:561: calling [Challenge.InsertarDatos$1]\nat main.go:574: calling [Challenge.Hash]\nat main.go:575: calling [Challenge.Hash]" fillcolor="lightblue" ]
+        "Challenge.InsertarDatos$1" [ style="dotted,filled" tooltip="Challenge.InsertarDatos$1 | defined in main.go:561\nat main.go:562: calling [(*database/sql.DB).Close]" fillcolor="lightblue" label="InsertarDatos$1" ]
+        "Challenge.Certificados" [ fillcolor="lightblue" label="Certificados" penwidth="1.5" tooltip="Challenge.Certificados | defined in main.go:774\nat main.go:775: calling [os.Getwd]\nat main.go:776: calling [Challenge.Err]\nat main.go:777: calling [path/filepath.Join]\nat main.go:778: calling [path/filepath.Join]" ]
+        "Challenge.main$2" [ fillcolor="lightblue" label="main$2" style="dotted,filled" tooltip="Challenge.main$2 | defined in main.go:357\nat main.go:358: calling [net/http.ListenAndServeTLS]\nat main.go:358: calling [Challenge.whitelistMiddleware]" ]
+        "Challenge.whitelistMiddleware" [ fillcolor="lightblue" label="whitelistMiddleware" penwidth="0.5" tooltip="Challenge.whitelistMiddleware | defined in main.go:292" ]
+        "Challenge.main$3" [ label="main$3" style="dotted,filled" tooltip="Challenge.main$3 | defined in main.go:361\nat main.go:362: calling [net/http.ListenAndServeTLS]" fillcolor="lightblue" ]
+        
+        subgraph "cluster_crypto/sha512" {
+        label="crypto/sha512";
+tooltip="package: crypto/sha512";
+rank="sink";
+URL="/?f=crypto/sha512";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+        
+        "crypto/sha512.Sum512" [ penwidth="1.5" tooltip="crypto/sha512.Sum512 | defined in sha512.go:343" fillcolor="#adedad" label="Sum512" ]
+        
+    }
+
+        subgraph "cluster_crypto/tls" {
+        rank="sink";
+tooltip="package: crypto/tls";
+fontsize="16";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="crypto/tls";
+URL="/?f=crypto/tls";
+penwidth="0.8";
+style="filled";
+        
+        "(*crypto/tls.Conn).Close" [ fillcolor="#adedad" label="(*Conn).Close" penwidth="1.5" tooltip="(*crypto/tls.Conn).Close | defined in conn.go:1346" ]
+        
+    }
+
+        subgraph "cluster_database/sql" {
+        style="filled";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=database/sql";
+tooltip="package: database/sql";
+fontsize="16";
+label="database/sql";
+penwidth="0.8";
+        
+        "database/sql.Open" [ fillcolor="#adedad" label="Open" penwidth="1.5" tooltip="database/sql.Open | defined in sql.go:813" ]
+        "(*database/sql.DB).Close" [ fillcolor="#adedad" label="(*DB).Close" penwidth="1.5" tooltip="(*database/sql.DB).Close | defined in sql.go:876" ]
+        "(*database/sql.DB).Exec" [ penwidth="1.5" tooltip="(*database/sql.DB).Exec | defined in sql.go:1646" fillcolor="#adedad" label="(*DB).Exec" ]
+        "(*database/sql.DB).Query" [ label="(*DB).Query" penwidth="1.5" tooltip="(*database/sql.DB).Query | defined in sql.go:1716" fillcolor="#adedad" ]
+        "(*database/sql.Rows).Scan" [ fillcolor="#adedad" label="(*Rows).Scan" penwidth="1.5" tooltip="(*database/sql.Rows).Scan | defined in sql.go:3232" ]
+        "(*database/sql.Rows).Next" [ fillcolor="#adedad" label="(*Rows).Next" penwidth="1.5" tooltip="(*database/sql.Rows).Next | defined in sql.go:2949" ]
+        "(*database/sql.Rows).Close" [ tooltip="(*database/sql.Rows).Close | defined in sql.go:3269" fillcolor="#adedad" label="(*Rows).Close" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_encoding/hex" {
+        style="filled";
+fillcolor="#E0FFE1";
+tooltip="package: encoding/hex";
+penwidth="0.8";
+fontsize="16";
+fontname="Tahoma bold";
+rank="sink";
+label="encoding/hex";
+URL="/?f=encoding/hex";
+        
+        "encoding/hex.EncodeToString" [ fillcolor="#adedad" label="EncodeToString" penwidth="1.5" tooltip="encoding/hex.EncodeToString | defined in hex.go:106" ]
+        
+    }
+
+        subgraph "cluster_encoding/json" {
+        label="encoding/json";
+URL="/?f=encoding/json";
+fontsize="16";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+rank="sink";
+penwidth="0.8";
+style="filled";
+tooltip="package: encoding/json";
+        
+        "encoding/json.Marshal" [ penwidth="1.5" tooltip="encoding/json.Marshal | defined in encode.go:157" fillcolor="#adedad" label="Marshal" ]
+        "encoding/json.Unmarshal" [ fillcolor="#adedad" label="Unmarshal" penwidth="1.5" tooltip="encoding/json.Unmarshal | defined in decode.go:97" ]
+        
+    }
+
+        subgraph "cluster_fmt" {
+        fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="fmt";
+URL="/?f=fmt";
+tooltip="package: fmt";
+penwidth="0.8";
+style="filled";
+rank="sink";
+fontsize="16";
+        
+        "fmt.Errorf" [ tooltip="fmt.Errorf | defined in errors.go:22" fillcolor="#adedad" label="Errorf" penwidth="1.5" ]
+        "fmt.Sprintf" [ tooltip="fmt.Sprintf | defined in print.go:237" fillcolor="#adedad" label="Sprintf" penwidth="1.5" ]
+        "fmt.Fprintf" [ tooltip="fmt.Fprintf | defined in print.go:222" fillcolor="#adedad" label="Fprintf" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_github.com/golang-jwt/jwt" {
+        fontsize="16";
+fontname="Tahoma bold";
+rank="sink";
+label="jwt";
+URL="/?f=github.com/golang-jwt/jwt";
+tooltip="package: github.com/golang-jwt/jwt";
+penwidth="0.8";
+fillcolor="lightyellow";
+style="filled";
+        
+        "(*github.com/golang-jwt/jwt.Parser).ParseWithClaims" [ label="(*Parser).ParseWithClaims" penwidth="1.5" tooltip="(*github.com/golang-jwt/jwt.Parser).ParseWithClaims | defined in parser.go:23\nat parser.go:51: calling [Challenge.authMiddleware$1$1]\nat parser.go:51: calling [Challenge.Json$1]" fillcolor="moccasin" ]
+        "github.com/golang-jwt/jwt.New" [ fillcolor="moccasin" label="New" penwidth="1.5" tooltip="github.com/golang-jwt/jwt.New | defined in token.go:33" ]
+        "(*github.com/golang-jwt/jwt.Token).SignedString" [ fillcolor="moccasin" label="(*Token).SignedString" penwidth="1.5" tooltip="(*github.com/golang-jwt/jwt.Token).SignedString | defined in token.go:49" ]
+        "github.com/golang-jwt/jwt.Parse" [ penwidth="1.5" tooltip="github.com/golang-jwt/jwt.Parse | defined in token.go:88" fillcolor="moccasin" label="Parse" ]
+        
+    }
+
+        subgraph "cluster_github.com/gorilla/mux" {
+        tooltip="package: github.com/gorilla/mux";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+fillcolor="lightyellow";
+rank="sink";
+label="mux";
+URL="/?f=github.com/gorilla/mux";
+        
+        "(github.com/gorilla/mux.MiddlewareFunc).Middleware" [ fillcolor="moccasin" label="(MiddlewareFunc).Middleware" penwidth="1.5" tooltip="(github.com/gorilla/mux.MiddlewareFunc).Middleware | defined in middleware.go:19\nat middleware.go:20: calling [Challenge.authMiddleware]" ]
+        "(*github.com/gorilla/mux.Router).ServeHTTP" [ fillcolor="moccasin" label="(*Router).ServeHTTP" penwidth="1.5" tooltip="(*github.com/gorilla/mux.Router).ServeHTTP | defined in mux.go:173\nat mux.go:210: calling [(net/http.HandlerFunc).ServeHTTP]" ]
+        "github.com/gorilla/mux.NewRouter" [ fillcolor="moccasin" label="NewRouter" penwidth="1.5" tooltip="github.com/gorilla/mux.NewRouter | defined in mux.go:25" ]
+        "(*github.com/gorilla/mux.Router).Use" [ penwidth="1.5" tooltip="(*github.com/gorilla/mux.Router).Use | defined in middleware.go:24" fillcolor="moccasin" label="(*Router).Use" ]
+        "(*github.com/gorilla/mux.Router).HandleFunc" [ fillcolor="moccasin" label="(*Router).HandleFunc" penwidth="1.5" tooltip="(*github.com/gorilla/mux.Router).HandleFunc | defined in mux.go:298" ]
+        
+    }
+
+        subgraph "cluster_github.com/pquerna/otp" {
+        fillcolor="lightyellow";
+label="otp";
+penwidth="0.8";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=github.com/pquerna/otp";
+tooltip="package: github.com/pquerna/otp";
+fontsize="16";
+        
+        "(*github.com/pquerna/otp.Key).Secret" [ label="(*Key).Secret" penwidth="1.5" tooltip="(*github.com/pquerna/otp.Key).Secret | defined in otp.go:134" fillcolor="moccasin" ]
+        
+    }
+
+        subgraph "cluster_github.com/pquerna/otp/totp" {
+        fillcolor="lightyellow";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=github.com/pquerna/otp/totp";
+tooltip="package: github.com/pquerna/otp/totp";
+penwidth="0.8";
+style="filled";
+label="totp";
+fontsize="16";
+        
+        "github.com/pquerna/otp/totp.Generate" [ fillcolor="moccasin" label="Generate" penwidth="1.5" tooltip="github.com/pquerna/otp/totp.Generate | defined in totp.go:154" ]
+        "github.com/pquerna/otp/totp.Validate" [ fillcolor="moccasin" label="Validate" penwidth="1.5" tooltip="github.com/pquerna/otp/totp.Validate | defined in totp.go:37" ]
+        
+    }
+
+        subgraph "cluster_io" {
+        fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="io";
+tooltip="package: io";
+style="filled";
+fontsize="16";
+rank="sink";
+URL="/?f=io";
+penwidth="0.8";
+        
+        "(io.nopCloser).Close" [ label="(nopCloser).Close" penwidth="1.5" tooltip="(io.nopCloser).Close | defined in io.go:678" fillcolor="#adedad" ]
+        "(io.nopCloserWriterTo).Close" [ penwidth="1.5" tooltip="(io.nopCloserWriterTo).Close | defined in io.go:684" fillcolor="#adedad" label="(nopCloserWriterTo).Close" ]
+        
+    }
+
+        subgraph "cluster_io/ioutil" {
+        fontname="Tahoma bold";
+penwidth="0.8";
+style="filled";
+fillcolor="#E0FFE1";
+URL="/?f=io/ioutil";
+tooltip="package: io/ioutil";
+fontsize="16";
+rank="sink";
+label="io/ioutil";
+        
+        "io/ioutil.ReadAll" [ penwidth="1.5" tooltip="io/ioutil.ReadAll | defined in ioutil.go:26" fillcolor="#adedad" label="ReadAll" ]
+        
+    }
+
+        subgraph "cluster_log" {
+        fontsize="16";
+style="filled";
+rank="sink";
+label="log";
+penwidth="0.8";
+fontname="Tahoma bold";
+URL="/?f=log";
+tooltip="package: log";
+fillcolor="#E0FFE1";
+        
+        "log.Println" [ fillcolor="#adedad" label="Println" penwidth="1.5" tooltip="log.Println | defined in log.go:355" ]
+        "log.Printf" [ fillcolor="#adedad" label="Printf" penwidth="1.5" tooltip="log.Printf | defined in log.go:346" ]
+        "log.SetOutput" [ fillcolor="#adedad" label="SetOutput" penwidth="1.5" tooltip="log.SetOutput | defined in log.go:302" ]
+        
+    }
+
+        subgraph "cluster_net" {
+        penwidth="0.8";
+style="filled";
+fillcolor="#E0FFE1";
+rank="sink";
+fontsize="16";
+fontname="Tahoma bold";
+label="net";
+URL="/?f=net";
+tooltip="package: net";
+        
+        "net.SplitHostPort" [ tooltip="net.SplitHostPort | defined in ipsock.go:164" fillcolor="#adedad" label="SplitHostPort" penwidth="1.5" ]
+        "(*net.conn).Close" [ fillcolor="#adedad" label="(*conn).Close" penwidth="1.5" tooltip="(*net.conn).Close | defined in net.go:203" ]
+        
+    }
+
+        subgraph "cluster_net/http" {
+        label="net/http";
+tooltip="package: net/http";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+rank="sink";
+URL="/?f=net/http";
+        
+        "net/http.Error" [ fillcolor="#adedad" label="Error" penwidth="1.5" tooltip="net/http.Error | defined in server.go:2131" ]
+        "(*net/http.Request).FormValue" [ fillcolor="#adedad" label="(*Request).FormValue" penwidth="1.5" tooltip="(*net/http.Request).FormValue | defined in request.go:1370" ]
+        "net/http.SetCookie" [ fillcolor="#adedad" label="SetCookie" penwidth="1.5" tooltip="net/http.SetCookie | defined in cookie.go:169" ]
+        "net/http.Redirect" [ fillcolor="#adedad" label="Redirect" penwidth="1.5" tooltip="net/http.Redirect | defined in server.go:2182" ]
+        "(net/http.HandlerFunc).ServeHTTP" [ tooltip="(net/http.HandlerFunc).ServeHTTP | defined in server.go:2121\nat server.go:2122: calling [Challenge.whitelistMiddleware$1]\nat server.go:2122: calling [Challenge.Informacion]\nat server.go:2122: calling [Challenge.redirectToHttps]\nat server.go:2122: calling [Challenge.Inicio]\nat server.go:2122: calling [Challenge.Login]\nat server.go:2122: calling [Challenge.CreateUser]\nat server.go:2122: calling [Challenge.BorrarUser]\nat server.go:2122: calling [Challenge.ViewUser]\nat server.go:2122: calling [Challenge.Json]\nat server.go:2122: calling [Challenge.authMiddleware$1]" fillcolor="#adedad" label="(HandlerFunc).ServeHTTP" penwidth="1.5" ]
+        "(*net/http.Request).Cookie" [ fillcolor="#adedad" label="(*Request).Cookie" penwidth="1.5" tooltip="(*net/http.Request).Cookie | defined in request.go:421" ]
+        "(*net/http.redirectHandler).ServeHTTP" [ fillcolor="#adedad" label="(*redirectHandler).ServeHTTP" penwidth="1.5" tooltip="(*net/http.redirectHandler).ServeHTTP | defined in server.go:2257" ]
+        "(net/http.Header).Get" [ label="(Header).Get" penwidth="1.5" tooltip="(net/http.Header).Get | defined in header.go:49" fillcolor="#adedad" ]
+        "net/http.Get" [ fillcolor="#adedad" label="Get" penwidth="1.5" tooltip="net/http.Get | defined in client.go:448" ]
+        "(*net/http.body).Close" [ fillcolor="#adedad" label="(*body).Close" penwidth="1.5" tooltip="(*net/http.body).Close | defined in transfer.go:967" ]
+        "(*net/http.bodyEOFSignal).Close" [ fillcolor="#adedad" label="(*bodyEOFSignal).Close" penwidth="1.5" tooltip="(*net/http.bodyEOFSignal).Close | defined in transport.go:2804" ]
+        "(net/http.http2transportResponseBody).Close" [ tooltip="(net/http.http2transportResponseBody).Close | defined in h2_bundle.go:9528" fillcolor="#adedad" label="(http2transportResponseBody).Close" penwidth="1.5" ]
+        "(*net/http.gzipReader).Close" [ fillcolor="#adedad" label="(*gzipReader).Close" penwidth="1.5" tooltip="(*net/http.gzipReader).Close | defined in transport.go:2859" ]
+        "(net/http.http2missingBody).Close" [ label="(http2missingBody).Close" penwidth="1.5" tooltip="(net/http.http2missingBody).Close | defined in h2_bundle.go:9981" fillcolor="#adedad" ]
+        "(net/http.http2noBodyReader).Close" [ fillcolor="#adedad" label="(http2noBodyReader).Close" penwidth="1.5" tooltip="(net/http.http2noBodyReader).Close | defined in h2_bundle.go:9975" ]
+        "(net/http.noBody).Close" [ penwidth="1.5" tooltip="(net/http.noBody).Close | defined in http.go:109" fillcolor="#adedad" label="(noBody).Close" ]
+        "(*net/http.http2gzipReader).Close" [ fillcolor="#adedad" label="(*http2gzipReader).Close" penwidth="1.5" tooltip="(*net/http.http2gzipReader).Close | defined in h2_bundle.go:10023" ]
+        "(*net/http.cancelTimerBody).Close" [ tooltip="(*net/http.cancelTimerBody).Close | defined in client.go:971" fillcolor="#adedad" label="(*cancelTimerBody).Close" penwidth="1.5" ]
+        "net/http.ListenAndServeTLS" [ penwidth="1.5" tooltip="net/http.ListenAndServeTLS | defined in server.go:3250" fillcolor="#adedad" label="ListenAndServeTLS" ]
+        "net/http.ListenAndServe" [ tooltip="net/http.ListenAndServe | defined in server.go:3240" fillcolor="#adedad" label="ListenAndServe" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_net/url" {
+        penwidth="0.8";
+style="filled";
+rank="sink";
+tooltip="package: net/url";
+fontsize="16";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="net/url";
+URL="/?f=net/url";
+        
+        "(*net/url.URL).Query" [ fillcolor="#adedad" label="(*URL).Query" penwidth="1.5" tooltip="(*net/url.URL).Query | defined in url.go:1117" ]
+        "(net/url.Values).Get" [ fillcolor="#adedad" label="(Values).Get" penwidth="1.5" tooltip="(net/url.Values).Get | defined in url.go:885" ]
+        
+    }
+
+        subgraph "cluster_os" {
+        fontsize="16";
+fontname="Tahoma bold";
+rank="sink";
+penwidth="0.8";
+style="filled";
+fillcolor="#E0FFE1";
+label="os";
+URL="/?f=os";
+tooltip="package: os";
+        
+        "os.Getenv" [ tooltip="os.Getenv | defined in env.go:101" fillcolor="#adedad" label="Getenv" penwidth="1.5" ]
+        "os.OpenFile" [ fillcolor="#adedad" label="OpenFile" penwidth="1.5" tooltip="os.OpenFile | defined in file.go:324" ]
+        "(*os.File).Close" [ tooltip="(*os.File).Close | defined in file_posix.go:21" fillcolor="#adedad" label="(*File).Close" penwidth="1.5" ]
+        "os.Getwd" [ penwidth="1.5" tooltip="os.Getwd | defined in getwd.go:22" fillcolor="#adedad" label="Getwd" ]
+        
+    }
+
+        subgraph "cluster_path/filepath" {
+        tooltip="package: path/filepath";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+rank="sink";
+URL="/?f=path/filepath";
+fillcolor="#E0FFE1";
+fontname="Tahoma bold";
+label="path/filepath";
+        
+        "path/filepath.Join" [ fillcolor="#adedad" label="Join" penwidth="1.5" tooltip="path/filepath.Join | defined in path.go:265" ]
+        
+    }
+
+        subgraph "cluster_regexp" {
+        URL="/?f=regexp";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
+label="regexp";
+penwidth="0.8";
+fillcolor="#E0FFE1";
+tooltip="package: regexp";
+        
+        "regexp.MustCompile" [ fillcolor="#adedad" label="MustCompile" penwidth="1.5" tooltip="regexp.MustCompile | defined in regexp.go:316" ]
+        "(*regexp.Regexp).ReplaceAllString" [ fillcolor="#adedad" label="(*Regexp).ReplaceAllString" penwidth="1.5" tooltip="(*regexp.Regexp).ReplaceAllString | defined in regexp.go:578" ]
+        
+    }
+
+        subgraph "cluster_strconv" {
+        style="filled";
+fontname="Tahoma bold";
+rank="sink";
+label="strconv";
+tooltip="package: strconv";
+penwidth="0.8";
+fontsize="16";
+fillcolor="#E0FFE1";
+URL="/?f=strconv";
+        
+        "strconv.Itoa" [ fillcolor="#adedad" label="Itoa" penwidth="1.5" tooltip="strconv.Itoa | defined in itoa.go:34" ]
+        
+    }
+
+        subgraph "cluster_strings" {
+        fontsize="16";
+fillcolor="#E0FFE1";
+label="strings";
+URL="/?f=strings";
+tooltip="package: strings";
+penwidth="0.8";
+style="filled";
+fontname="Tahoma bold";
+rank="sink";
+        
+        "strings.ReplaceAll" [ fillcolor="#adedad" label="ReplaceAll" penwidth="1.5" tooltip="strings.ReplaceAll | defined in strings.go:1088" ]
+        "strings.Repeat" [ fillcolor="#adedad" label="Repeat" penwidth="1.5" tooltip="strings.Repeat | defined in strings.go:525" ]
+        "strings.Split" [ tooltip="strings.Split | defined in strings.go:305" fillcolor="#adedad" label="Split" penwidth="1.5" ]
+        
+    }
+
+        subgraph "cluster_text/template" {
+        rank="sink";
+URL="/?f=text/template";
+tooltip="package: text/template";
+penwidth="0.8";
+fontsize="16";
+style="filled";
+fontname="Tahoma bold";
+fillcolor="#E0FFE1";
+label="text/template";
+        
+        "(*text/template.Template).ExecuteTemplate" [ fillcolor="#adedad" label="(*Template).ExecuteTemplate" penwidth="1.5" tooltip="(*text/template.Template).ExecuteTemplate | defined in exec.go:188" ]
+        "text/template.ParseGlob" [ fillcolor="#adedad" label="ParseGlob" penwidth="1.5" tooltip="text/template.ParseGlob | defined in helper.go:105" ]
+        "text/template.Must" [ fillcolor="#adedad" label="Must" penwidth="1.5" tooltip="text/template.Must | defined in helper.go:24" ]
+        
+    }
+
+        subgraph "cluster_time" {
+        fontsize="16";
+fontname="Tahoma bold";
+tooltip="package: time";
+penwidth="0.8";
+style="filled";
+fillcolor="#E0FFE1";
+rank="sink";
+label="time";
+URL="/?f=time";
+        
+        "time.Now" [ penwidth="1.5" tooltip="time.Now | defined in time.go:1110" fillcolor="#adedad" label="Now" ]
+        "(time.Time).Add" [ fillcolor="#adedad" label="(Time).Add" penwidth="1.5" tooltip="(time.Time).Add | defined in time.go:856" ]
+        "(time.Time).Unix" [ penwidth="1.5" tooltip="(time.Time).Unix | defined in time.go:1192" fillcolor="#adedad" label="(Time).Unix" ]
+        
+    }
+
+    }
+
+    "Challenge.GenerarTokenJWT" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:202: calling [log.Println]" ]
+    "Challenge.Informacion" -> "(net/url.Values).Get" [ color="saddlebrown" tooltip="at main.go:654: calling [(net/url.Values).Get]" ]
+    "Challenge.ViewUser" -> "Challenge.ConexionDB" [ tooltip="at main.go:488: calling [Challenge.ConexionDB]" ]
+    "Challenge.ViewUser" -> "(*database/sql.Rows).Scan" [ color="saddlebrown" tooltip="at main.go:498: calling [(*database/sql.Rows).Scan]" ]
+    "Challenge.Login" -> "Challenge.GenerarSessionCookie" [ tooltip="at main.go:217: calling [Challenge.GenerarSessionCookie]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.whitelistMiddleware$1" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.whitelistMiddleware$1]" ]
+    "Challenge.main$3" -> "net/http.ListenAndServeTLS" [ color="saddlebrown" tooltip="at main.go:362: calling [net/http.ListenAndServeTLS]" ]
+    "Challenge.ObtenerDatos$1" -> "(net/http.http2missingBody).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(net/http.http2missingBody).Close]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "(*database/sql.Rows).Scan" [ tooltip="at main.go:548: calling [(*database/sql.Rows).Scan]" color="saddlebrown" ]
+    "Challenge.Login" -> "Challenge.VerificarOTP" [ tooltip="at main.go:214: calling [Challenge.VerificarOTP]" ]
+    "Challenge.Login" -> "(*text/template.Template).ExecuteTemplate" [ color="saddlebrown" tooltip="at main.go:236: calling [(*text/template.Template).ExecuteTemplate]" ]
+    "Challenge.Informacion" -> "Challenge.ConexionDB" [ tooltip="at main.go:656: calling [Challenge.ConexionDB]" ]
+    "Challenge.authMiddleware$1" -> "net/http.Redirect" [ color="saddlebrown" tooltip="at main.go:247: calling [net/http.Redirect]\nat main.go:265: calling [net/http.Redirect]\nat main.go:271: calling [net/http.Redirect]" ]
+    "(github.com/gorilla/mux.MiddlewareFunc).Middleware" -> "Challenge.authMiddleware" [ style="dashed" color="saddlebrown" tooltip="at middleware.go:20: calling [Challenge.authMiddleware]" ]
+    "Challenge.ObtenerDatos" -> "Challenge.Err" [ tooltip="at main.go:369: calling [Challenge.Err]\nat main.go:375: calling [Challenge.Err]\nat main.go:378: calling [Challenge.Err]" ]
+    "Challenge.CrearTablaUsuarios" -> "(*database/sql.Rows).Scan" [ color="saddlebrown" tooltip="at main.go:435: calling [(*database/sql.Rows).Scan]" ]
+    "Challenge.Inicio" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:613: calling [(*database/sql.DB).Query]" ]
+    "Challenge.ObtenerDatos$1" -> "(*net/http.bodyEOFSignal).Close" [ color="saddlebrown" tooltip="at main.go:371: calling [(*net/http.bodyEOFSignal).Close]" style="dashed" ]
+    "Challenge.CrearTablaDatos" -> "Challenge.Err" [ tooltip="at main.go:412: calling [Challenge.Err]" ]
+    "Challenge.Json" -> "encoding/json.Marshal" [ color="saddlebrown" tooltip="at main.go:763: calling [encoding/json.Marshal]" ]
+    "Challenge.BorrarUser" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:529: calling [log.Println]" ]
+    "Challenge.ObtenerDatos" -> "Challenge.ObtenerDatos$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:370: calling [Challenge.ObtenerDatos$1]" ]
+    "Challenge.InsertarDatos" -> "strings.ReplaceAll" [ color="saddlebrown" tooltip="at main.go:574: calling [strings.ReplaceAll]" ]
+    "Challenge.authMiddleware$1$1" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:256: calling [log.Println]" ]
+    "Challenge.CreateUser" -> "Challenge.ConexionDB" [ tooltip="at main.go:461: calling [Challenge.ConexionDB]" ]
+    "Challenge.Login" -> "Challenge.Err" [ tooltip="at main.go:220: calling [Challenge.Err]\nat main.go:226: calling [Challenge.Err]" ]
+    "Challenge.Inicio" -> "(*text/template.Template).ExecuteTemplate" [ tooltip="at main.go:646: calling [(*text/template.Template).ExecuteTemplate]" color="saddlebrown" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.Informacion" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.Informacion]" ]
+    "Challenge.ObtenerDatos$1" -> "(*net.conn).Close" [ color="saddlebrown" tooltip="at main.go:371: calling [(*net.conn).Close]" style="dashed" ]
+    "Challenge.InsertarDatos" -> "Challenge.Ofuscar" [ tooltip="at main.go:571: calling [Challenge.Ofuscar]\nat main.go:572: calling [Challenge.Ofuscar]" ]
+    "Challenge.main" -> "Challenge.main$2" [ arrowhead="normalnoneodot" tooltip="at main.go:357: calling [Challenge.main$2]" ]
+    "Challenge.Informacion$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:658: calling [(*database/sql.DB).Close]" ]
+    "Challenge.BorrarUser" -> "Challenge.BorrarUser$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:518: calling [Challenge.BorrarUser$1]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "(*database/sql.Rows).Next" [ color="saddlebrown" tooltip="at main.go:547: calling [(*database/sql.Rows).Next]" ]
+    "Challenge.VerificarOTP" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:323: calling [log.Println]" ]
+    "Challenge.init" -> "text/template.Must" [ color="saddlebrown" tooltip="at main.go:46: calling [text/template.Must]" ]
+    "Challenge.main" -> "Challenge.ObtenerDatos" [ tooltip="at main.go:339: calling [Challenge.ObtenerDatos]" ]
+    "Challenge.Json" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:702: calling [log.Println]\nat main.go:704: calling [log.Println]\nat main.go:718: calling [log.Println]\nat main.go:769: calling [log.Println]\nat main.go:724: calling [log.Println]\nat main.go:729: calling [log.Println]" ]
+    "(*github.com/golang-jwt/jwt.Parser).ParseWithClaims" -> "Challenge.authMiddleware$1$1" [ style="dashed" color="saddlebrown" tooltip="at parser.go:51: calling [Challenge.authMiddleware$1$1]" ]
+    "Challenge.Inicio" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:615: calling [log.Println]\nat main.go:649: calling [log.Println]" ]
+    "Challenge.Informacion" -> "(*database/sql.Rows).Scan" [ color="saddlebrown" tooltip="at main.go:666: calling [(*database/sql.Rows).Scan]" ]
+    "Challenge.Json" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:731: calling [log.Printf]" ]
+    "Challenge.ViewUser" -> "(*text/template.Template).ExecuteTemplate" [ color="saddlebrown" tooltip="at main.go:507: calling [(*text/template.Template).ExecuteTemplate]" ]
+    "Challenge.CrearTablaUsuarios" -> "Challenge.Err" [ tooltip="at main.go:428: calling [Challenge.Err]\nat main.go:436: calling [Challenge.Err]\nat main.go:443: calling [Challenge.Err]\nat main.go:448: calling [Challenge.Err]\nat main.go:454: calling [Challenge.Err]" ]
+    "Challenge.authMiddleware$1" -> "(*net/http.Request).Cookie" [ tooltip="at main.go:242: calling [(*net/http.Request).Cookie]" color="saddlebrown" ]
+    "Challenge.Json" -> "fmt.Fprintf" [ color="saddlebrown" tooltip="at main.go:705: calling [fmt.Fprintf]\nat main.go:765: calling [fmt.Fprintf]" ]
+    "Challenge.main" -> "Challenge.main$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:334: calling [Challenge.main$1]" ]
+    "Challenge.ObtenerDatos" -> "io/ioutil.ReadAll" [ color="saddlebrown" tooltip="at main.go:374: calling [io/ioutil.ReadAll]" ]
+    "Challenge.main" -> "Challenge.CrearTablaDatos" [ tooltip="at main.go:341: calling [Challenge.CrearTablaDatos]" ]
+    "Challenge.generateSecretKey" -> "(*github.com/pquerna/otp.Key).Secret" [ tooltip="at main.go:311: calling [(*github.com/pquerna/otp.Key).Secret]\nat main.go:312: calling [(*github.com/pquerna/otp.Key).Secret]\nat main.go:314: calling [(*github.com/pquerna/otp.Key).Secret]" color="saddlebrown" ]
+    "Challenge.ObtenerDatos" -> "net/http.Get" [ color="saddlebrown" tooltip="at main.go:368: calling [net/http.Get]" ]
+    "Challenge.CreateUser" -> "Challenge.CreateUser$1" [ tooltip="at main.go:462: calling [Challenge.CreateUser$1]" arrowhead="normalnoneodiamond" ]
+    "Challenge.GenerarSessionCookie" -> "Challenge.GenerarTokenJWT" [ tooltip="at main.go:175: calling [Challenge.GenerarTokenJWT]" ]
+    "Challenge.BorrarUser" -> "(*net/url.URL).Query" [ color="saddlebrown" tooltip="at main.go:515: calling [(*net/url.URL).Query]\nat main.go:516: calling [(*net/url.URL).Query]" ]
+    "Challenge.BorrarUser" -> "Challenge.ConexionDB" [ tooltip="at main.go:517: calling [Challenge.ConexionDB]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.redirectToHttps" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.redirectToHttps]" ]
+    "Challenge.ObtenerDatos$1" -> "(*net/http.cancelTimerBody).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(*net/http.cancelTimerBody).Close]" ]
+    "Challenge.Login" -> "Challenge.ConsultarTablaUsuarios" [ tooltip="at main.go:212: calling [Challenge.ConsultarTablaUsuarios]" ]
+    "Challenge.GenerarSessionCookie" -> "time.Now" [ color="saddlebrown" tooltip="at main.go:184: calling [time.Now]" ]
+    "Challenge.ObtenerDatos" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:376: calling [log.Printf]" ]
+    "Challenge.GenerarSessionCookie" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:187: calling [log.Println]" ]
+    "Challenge.CreateUser" -> "Challenge.generateSecretKey" [ tooltip="at main.go:471: calling [Challenge.generateSecretKey]" ]
+    "Challenge.Informacion" -> "Challenge.Informacion$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:657: calling [Challenge.Informacion$1]" ]
+    "Challenge.Informacion" -> "(*database/sql.Rows).Next" [ color="saddlebrown" tooltip="at main.go:665: calling [(*database/sql.Rows).Next]" ]
+    "Challenge.Json" -> "(*net/url.URL).Query" [ color="saddlebrown" tooltip="at main.go:700: calling [(*net/url.URL).Query]\nat main.go:701: calling [(*net/url.URL).Query]" ]
+    "Challenge.ViewUser" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:492: calling [log.Println]\nat main.go:510: calling [log.Println]" ]
+    "Challenge.VerificarIPenWhiteList" -> "log.Printf" [ tooltip="at main.go:805: calling [log.Printf]\nat main.go:801: calling [log.Printf]" color="saddlebrown" ]
+    "Challenge.Certificados" -> "os.Getwd" [ color="saddlebrown" tooltip="at main.go:775: calling [os.Getwd]" ]
+    "Challenge.CreateUser$1" -> "(*database/sql.DB).Close" [ tooltip="at main.go:463: calling [(*database/sql.DB).Close]" color="saddlebrown" ]
+    "Challenge.Inicio" -> "(*database/sql.Rows).Scan" [ color="saddlebrown" tooltip="at main.go:617: calling [(*database/sql.Rows).Scan]" ]
+    "Challenge.Json" -> "Challenge.Err" [ tooltip="at main.go:742: calling [Challenge.Err]\nat main.go:751: calling [Challenge.Err]\nat main.go:764: calling [Challenge.Err]" ]
+    "Challenge.Login" -> "net/http.Redirect" [ color="saddlebrown" tooltip="at main.go:221: calling [net/http.Redirect]\nat main.go:227: calling [net/http.Redirect]" ]
+    "Challenge.ObtenerDatos$1" -> "(net/http.http2transportResponseBody).Close" [ color="saddlebrown" tooltip="at main.go:371: calling [(net/http.http2transportResponseBody).Close]" style="dashed" ]
+    "Challenge.ObtenerDatos$1" -> "(io.nopCloserWriterTo).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(io.nopCloserWriterTo).Close]" ]
+    "Challenge.Json" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:741: calling [(*database/sql.DB).Query]" ]
+    "Challenge.Ofuscar" -> "strings.Repeat" [ color="saddlebrown" tooltip="at main.go:156: calling [strings.Repeat]" ]
+    "Challenge.RemoverCaracteresEspeciales" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:170: calling [log.Println]" ]
+    "Challenge.GenerarTokenJWT" -> "(*github.com/golang-jwt/jwt.Token).SignedString" [ color="saddlebrown" tooltip="at main.go:200: calling [(*github.com/golang-jwt/jwt.Token).SignedString]" ]
+    "Challenge.BorrarUser" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:528: calling [net/http.Error]" ]
+    "Challenge.main" -> "github.com/gorilla/mux.NewRouter" [ color="saddlebrown" tooltip="at main.go:345: calling [github.com/gorilla/mux.NewRouter]\nat main.go:347: calling [github.com/gorilla/mux.NewRouter]" ]
+    "Challenge.Certificados" -> "Challenge.Err" [ tooltip="at main.go:776: calling [Challenge.Err]" ]
+    "Challenge.generateSecretKey" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:313: calling [log.Println]" ]
+    "Challenge.RemoverCaracteresEspeciales" -> "regexp.MustCompile" [ color="saddlebrown" tooltip="at main.go:168: calling [regexp.MustCompile]" ]
+    "Challenge.GenerarTokenJWT" -> "github.com/golang-jwt/jwt.New" [ color="saddlebrown" tooltip="at main.go:192: calling [github.com/golang-jwt/jwt.New]" ]
+    "Challenge.Inicio" -> "Challenge.Inicio$1" [ tooltip="at main.go:609: calling [Challenge.Inicio$1]" arrowhead="normalnoneodiamond" ]
+    "Challenge.BorrarUser" -> "(net/url.Values).Get" [ color="saddlebrown" tooltip="at main.go:515: calling [(net/url.Values).Get]\nat main.go:516: calling [(net/url.Values).Get]" ]
+    "Challenge.redirectToHttps" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:328: calling [log.Println]" ]
+    "Challenge.CrearTablaUsuarios$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:417: calling [(*database/sql.DB).Close]" ]
+    "Challenge.Json" -> "(net/url.Values).Get" [ color="saddlebrown" tooltip="at main.go:700: calling [(net/url.Values).Get]\nat main.go:701: calling [(net/url.Values).Get]" ]
+    "Challenge.Json" -> "(*database/sql.Rows).Scan" [ color="saddlebrown" tooltip="at main.go:750: calling [(*database/sql.Rows).Scan]" ]
+    "Challenge.InsertarDatos" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:567: calling [log.Println]" ]
+    "Challenge.Err" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:144: calling [log.Println]" ]
+    "Challenge.CreateUser" -> "(*net/http.Request).FormValue" [ color="saddlebrown" tooltip="at main.go:465: calling [(*net/http.Request).FormValue]\nat main.go:466: calling [(*net/http.Request).FormValue]\nat main.go:467: calling [(*net/http.Request).FormValue]" ]
+    "Challenge.CreateUser" -> "Challenge.Hash" [ tooltip="at main.go:468: calling [Challenge.Hash]" ]
+    "Challenge.CreateUser" -> "Challenge.Err" [ tooltip="at main.go:472: calling [Challenge.Err]\nat main.go:477: calling [Challenge.Err]" ]
+    "Challenge.ConsultarTablaUsuarios$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:535: calling [(*database/sql.DB).Close]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:543: calling [log.Printf]" ]
+    "Challenge.Json" -> "Challenge.ConexionDB" [ tooltip="at main.go:736: calling [Challenge.ConexionDB]" ]
+    "Challenge.ViewUser" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:495: calling [(*database/sql.DB).Query]" ]
+    "Challenge.ObtenerIP" -> "strings.Split" [ color="saddlebrown" tooltip="at main.go:784: calling [strings.Split]" ]
+    "Challenge.InsertarDatos" -> "(*database/sql.DB).Exec" [ color="saddlebrown" tooltip="at main.go:565: calling [(*database/sql.DB).Exec]\nat main.go:600: calling [(*database/sql.DB).Exec]" ]
+    "Challenge.main$2" -> "net/http.ListenAndServeTLS" [ color="saddlebrown" tooltip="at main.go:358: calling [net/http.ListenAndServeTLS]" ]
+    "Challenge.Login" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:233: calling [log.Println]" ]
+    "Challenge.Informacion" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:695: calling [net/http.Error]" ]
+    "Challenge.authMiddleware$1" -> "(*net/http.redirectHandler).ServeHTTP" [ style="dashed" color="saddlebrown" tooltip="at main.go:287: calling [(*net/http.redirectHandler).ServeHTTP]" ]
+    "Challenge.InsertarDatos" -> "Challenge.ConexionDB" [ tooltip="at main.go:560: calling [Challenge.ConexionDB]" ]
+    "Challenge.InsertarDatos" -> "fmt.Sprintf" [ color="saddlebrown" tooltip="at main.go:577: calling [fmt.Sprintf]" ]
+    "Challenge.Login" -> "Challenge.Hash" [ tooltip="at main.go:211: calling [Challenge.Hash]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "fmt.Sprintf" [ color="saddlebrown" tooltip="at main.go:552: calling [fmt.Sprintf]\nat main.go:553: calling [fmt.Sprintf]\nat main.go:554: calling [fmt.Sprintf]" ]
+    "Challenge.ObtenerDatos$1" -> "(*net/http.body).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(*net/http.body).Close]" ]
+    "Challenge.ObtenerDatos$1" -> "(io.nopCloser).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(io.nopCloser).Close]" ]
+    "Challenge.main" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:360: calling [log.Println]" ]
+    "Challenge.Json" -> "github.com/golang-jwt/jwt.Parse" [ color="saddlebrown" tooltip="at main.go:708: calling [github.com/golang-jwt/jwt.Parse]" ]
+    "Challenge.Json" -> "Challenge.RemoverCaracteresEspeciales" [ tooltip="at main.go:734: calling [Challenge.RemoverCaracteresEspeciales]" ]
+    "Challenge.Json$3" -> "(*database/sql.Rows).Close" [ tooltip="at main.go:744: calling [(*database/sql.Rows).Close]" color="saddlebrown" ]
+    "Challenge.Json" -> "(*database/sql.Rows).Next" [ tooltip="at main.go:749: calling [(*database/sql.Rows).Next]" color="saddlebrown" ]
+    "Challenge.redirectToHttps" -> "net/http.Redirect" [ color="saddlebrown" tooltip="at main.go:327: calling [net/http.Redirect]" ]
+    "Challenge.authMiddleware$1" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:243: calling [log.Println]\nat main.go:289: calling [log.Println]\nat main.go:248: calling [log.Println]\nat main.go:266: calling [log.Println]\nat main.go:272: calling [log.Println]\nat main.go:277: calling [log.Println]\nat main.go:282: calling [log.Println]" ]
+    "Challenge.Inicio" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:648: calling [net/http.Error]" ]
+    "Challenge.ConexionDB" -> "database/sql.Open" [ tooltip="at main.go:148: calling [database/sql.Open]" color="saddlebrown" ]
+    "Challenge.ViewUser$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:490: calling [(*database/sql.DB).Close]" ]
+    "Challenge.whitelistMiddleware$1" -> "Challenge.ObtenerIP" [ tooltip="at main.go:294: calling [Challenge.ObtenerIP]" ]
+    "Challenge.main" -> "Challenge.InsertarDatos" [ tooltip="at main.go:342: calling [Challenge.InsertarDatos]" ]
+    "(*github.com/golang-jwt/jwt.Parser).ParseWithClaims" -> "Challenge.Json$1" [ style="dashed" color="saddlebrown" tooltip="at parser.go:51: calling [Challenge.Json$1]" ]
+    "Challenge.BorrarUser$1" -> "(*database/sql.DB).Close" [ tooltip="at main.go:519: calling [(*database/sql.DB).Close]" color="saddlebrown" ]
+    "Challenge.ObtenerDatos$1" -> "(*net/http.gzipReader).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(*net/http.gzipReader).Close]" ]
+    "Challenge.CrearTablaUsuarios" -> "Challenge.generateSecretKey" [ tooltip="at main.go:442: calling [Challenge.generateSecretKey]" ]
+    "Challenge.InsertarDatos$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:562: calling [(*database/sql.DB).Close]" ]
+    "Challenge.ConexionDB" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:149: calling [log.Println]" ]
+    "Challenge.GenerarTokenJWT" -> "time.Now" [ color="saddlebrown" tooltip="at main.go:198: calling [time.Now]" ]
+    "Challenge.GenerarSessionCookie" -> "(time.Time).Add" [ color="saddlebrown" tooltip="at main.go:184: calling [(time.Time).Add]" ]
+    "Challenge.ObtenerDatos$1" -> "(net/http.noBody).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(net/http.noBody).Close]" ]
+    "Challenge.CrearTablaUsuarios" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:419: calling [log.Println]" ]
+    "Challenge.GenerarTokenJWT" -> "(time.Time).Add" [ color="saddlebrown" tooltip="at main.go:198: calling [(time.Time).Add]" ]
+    "Challenge.CrearTablaDatos" -> "Challenge.ConexionDB" [ tooltip="at main.go:381: calling [Challenge.ConexionDB]" ]
+    "Challenge.Inicio" -> "(*database/sql.Rows).Next" [ color="saddlebrown" tooltip="at main.go:616: calling [(*database/sql.Rows).Next]" ]
+    "(*github.com/gorilla/mux.Router).ServeHTTP" -> "(net/http.HandlerFunc).ServeHTTP" [ style="dashed" color="saddlebrown" tooltip="at mux.go:210: calling [(net/http.HandlerFunc).ServeHTTP]" ]
+    "Challenge.init" -> "os.Getenv" [ color="saddlebrown" tooltip="at main.go:28: calling [os.Getenv]\nat main.go:29: calling [os.Getenv]\nat main.go:30: calling [os.Getenv]\nat main.go:31: calling [os.Getenv]\nat main.go:32: calling [os.Getenv]\nat main.go:33: calling [os.Getenv]\nat main.go:34: calling [os.Getenv]\nat main.go:35: calling [os.Getenv]" ]
+    "Challenge.CrearTablaUsuarios" -> "(*database/sql.DB).Exec" [ color="saddlebrown" tooltip="at main.go:427: calling [(*database/sql.DB).Exec]\nat main.go:446: calling [(*database/sql.DB).Exec]\nat main.go:453: calling [(*database/sql.DB).Exec]" ]
+    "Challenge.Json$1" -> "fmt.Errorf" [ color="saddlebrown" tooltip="at main.go:711: calling [fmt.Errorf]" ]
+    "Challenge.CrearTablaDatos" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:385: calling [log.Println]" ]
+    "Challenge.Hash" -> "crypto/sha512.Sum512" [ tooltip="at main.go:161: calling [crypto/sha512.Sum512]" color="saddlebrown" ]
+    "Challenge.generateSecretKey" -> "github.com/pquerna/otp/totp.Generate" [ color="saddlebrown" tooltip="at main.go:305: calling [github.com/pquerna/otp/totp.Generate]" ]
+    "Challenge.generateSecretKey" -> "Challenge.Err" [ tooltip="at main.go:309: calling [Challenge.Err]" ]
+    "Challenge.CrearTablaUsuarios" -> "Challenge.ConexionDB" [ tooltip="at main.go:415: calling [Challenge.ConexionDB]" ]
+    "Challenge.CreateUser" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:476: calling [log.Printf]" ]
+    "Challenge.Login" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:210: calling [log.Printf]\nat main.go:222: calling [log.Printf]\nat main.go:228: calling [log.Printf]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "Challenge.ConexionDB" [ tooltip="at main.go:533: calling [Challenge.ConexionDB]" ]
+    "Challenge.Login" -> "net/http.SetCookie" [ color="saddlebrown" tooltip="at main.go:219: calling [net/http.SetCookie]\nat main.go:225: calling [net/http.SetCookie]" ]
+    "Challenge.main" -> "Challenge.Err" [ tooltip="at main.go:333: calling [Challenge.Err]" ]
+    "Challenge.CrearTablaUsuarios" -> "fmt.Sprintf" [ color="saddlebrown" tooltip="at main.go:439: calling [fmt.Sprintf]\nat main.go:444: calling [fmt.Sprintf]\nat main.go:451: calling [fmt.Sprintf]" ]
+    "Challenge.CreateUser" -> "fmt.Sprintf" [ color="saddlebrown" tooltip="at main.go:473: calling [fmt.Sprintf]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:544: calling [(*database/sql.DB).Query]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.Inicio" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.Inicio]" ]
+    "Challenge.Json$1" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:709: calling [log.Println]" ]
+    "Challenge.Inicio$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:610: calling [(*database/sql.DB).Close]" ]
+    "Challenge.Json" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:768: calling [net/http.Error]" ]
+    "Challenge.BorrarUser" -> "net/http.Redirect" [ color="saddlebrown" tooltip="at main.go:525: calling [net/http.Redirect]" ]
+    "Challenge.whitelistMiddleware$1" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:295: calling [log.Printf]" ]
+    "Challenge.VerificarOTP" -> "github.com/pquerna/otp/totp.Validate" [ color="saddlebrown" tooltip="at main.go:317: calling [github.com/pquerna/otp/totp.Validate]" ]
+    "Challenge.main" -> "os.OpenFile" [ color="saddlebrown" tooltip="at main.go:332: calling [os.OpenFile]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.Login" [ tooltip="at server.go:2122: calling [Challenge.Login]" style="dashed" color="saddlebrown" ]
+    "Challenge.Inicio" -> "Challenge.ConexionDB" [ tooltip="at main.go:608: calling [Challenge.ConexionDB]" ]
+    "Challenge.Json" -> "Challenge.Json$2" [ arrowhead="normalnoneodiamond" tooltip="at main.go:737: calling [Challenge.Json$2]" ]
+    "Challenge.ViewUser" -> "Challenge.ViewUser$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:489: calling [Challenge.ViewUser$1]" ]
+    "Challenge.BorrarUser" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:522: calling [(*database/sql.DB).Query]" ]
+    "Challenge.InsertarDatos" -> "Challenge.Err" [ tooltip="at main.go:566: calling [Challenge.Err]\nat main.go:601: calling [Challenge.Err]" ]
+    "Challenge.ViewUser" -> "Challenge.Err" [ tooltip="at main.go:496: calling [Challenge.Err]\nat main.go:499: calling [Challenge.Err]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.CreateUser" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.CreateUser]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.BorrarUser" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.BorrarUser]" ]
+    "Challenge.CrearTablaDatos" -> "Challenge.CrearTablaDatos$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:382: calling [Challenge.CrearTablaDatos$1]" ]
+    "Challenge.Ofuscar" -> "strings.ReplaceAll" [ color="saddlebrown" tooltip="at main.go:155: calling [strings.ReplaceAll]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "Challenge.ConsultarTablaUsuarios$1" [ tooltip="at main.go:534: calling [Challenge.ConsultarTablaUsuarios$1]" arrowhead="normalnoneodiamond" ]
+    "Challenge.GenerarTokenJWT" -> "Challenge.Err" [ tooltip="at main.go:201: calling [Challenge.Err]" ]
+    "Challenge.Informacion" -> "(*database/sql.DB).Query" [ tooltip="at main.go:661: calling [(*database/sql.DB).Query]" color="saddlebrown" ]
+    "Challenge.Json$2" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:738: calling [(*database/sql.DB).Close]" ]
+    "Challenge.BorrarUser" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:524: calling [log.Printf]" ]
+    "Challenge.init" -> "fmt.Sprintf" [ color="saddlebrown" tooltip="at main.go:36: calling [fmt.Sprintf]" ]
+    "Challenge.ConexionDB" -> "Challenge.Err" [ tooltip="at main.go:150: calling [Challenge.Err]" ]
+    "Challenge.Hash" -> "encoding/hex.EncodeToString" [ color="saddlebrown" tooltip="at main.go:162: calling [encoding/hex.EncodeToString]" ]
+    "Challenge.Informacion" -> "(*net/url.URL).Query" [ color="saddlebrown" tooltip="at main.go:654: calling [(*net/url.URL).Query]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.ViewUser" [ style="dashed" color="saddlebrown" tooltip="at server.go:2122: calling [Challenge.ViewUser]" ]
+    "Challenge.main" -> "Challenge.CrearTablaUsuarios" [ tooltip="at main.go:340: calling [Challenge.CrearTablaUsuarios]" ]
+    "Challenge.GenerarTokenJWT" -> "(time.Time).Unix" [ color="saddlebrown" tooltip="at main.go:198: calling [(time.Time).Unix]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.Json" [ tooltip="at server.go:2122: calling [Challenge.Json]" style="dashed" color="saddlebrown" ]
+    "Challenge.whitelistMiddleware$1" -> "(*github.com/gorilla/mux.Router).ServeHTTP" [ style="dashed" color="saddlebrown" tooltip="at main.go:301: calling [(*github.com/gorilla/mux.Router).ServeHTTP]" ]
+    "Challenge.ObtenerDatos$1" -> "(net/http.http2noBodyReader).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(net/http.http2noBodyReader).Close]" ]
+    "Challenge.Informacion" -> "(*text/template.Template).ExecuteTemplate" [ color="saddlebrown" tooltip="at main.go:693: calling [(*text/template.Template).ExecuteTemplate]" ]
+    "Challenge.Json" -> "Challenge.Json$3" [ arrowhead="normalnoneodiamond" tooltip="at main.go:743: calling [Challenge.Json$3]" ]
+    "Challenge.authMiddleware$1" -> "github.com/golang-jwt/jwt.Parse" [ color="saddlebrown" tooltip="at main.go:254: calling [github.com/golang-jwt/jwt.Parse]" ]
+    "Challenge.ObtenerIP" -> "(net/http.Header).Get" [ tooltip="at main.go:782: calling [(net/http.Header).Get]" color="saddlebrown" ]
+    "Challenge.main" -> "Challenge.main$3" [ arrowhead="normalnoneodot" tooltip="at main.go:361: calling [Challenge.main$3]" ]
+    "Challenge.BorrarUser" -> "Challenge.Err" [ tooltip="at main.go:523: calling [Challenge.Err]" ]
+    "Challenge.authMiddleware$1" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:284: calling [log.Printf]" ]
+    "Challenge.CrearTablaUsuarios" -> "(*database/sql.Rows).Next" [ color="saddlebrown" tooltip="at main.go:434: calling [(*database/sql.Rows).Next]" ]
+    "Challenge.main" -> "(*github.com/gorilla/mux.Router).Use" [ tooltip="at main.go:346: calling [(*github.com/gorilla/mux.Router).Use]" color="saddlebrown" ]
+    "Challenge.ObtenerIP" -> "net.SplitHostPort" [ color="saddlebrown" tooltip="at main.go:786: calling [net.SplitHostPort]" ]
+    "Challenge.init" -> "text/template.ParseGlob" [ color="saddlebrown" tooltip="at main.go:46: calling [text/template.ParseGlob]" ]
+    "Challenge.main$1" -> "(*os.File).Close" [ color="saddlebrown" tooltip="at main.go:335: calling [(*os.File).Close]" ]
+    "Challenge.main" -> "log.SetOutput" [ color="saddlebrown" tooltip="at main.go:337: calling [log.SetOutput]" ]
+    "Challenge.CreateUser" -> "(*text/template.Template).ExecuteTemplate" [ color="saddlebrown" tooltip="at main.go:480: calling [(*text/template.Template).ExecuteTemplate]" ]
+    "Challenge.Informacion" -> "log.Println" [ tooltip="at main.go:664: calling [log.Println]\nat main.go:696: calling [log.Println]" color="saddlebrown" ]
+    "Challenge.ViewUser" -> "(*database/sql.Rows).Next" [ color="saddlebrown" tooltip="at main.go:497: calling [(*database/sql.Rows).Next]" ]
+    "Challenge.authMiddleware$1" -> "(net/http.HandlerFunc).ServeHTTP" [ style="dashed" color="saddlebrown" tooltip="at main.go:287: calling [(net/http.HandlerFunc).ServeHTTP]" ]
+    "Challenge.CrearTablaDatos" -> "(*database/sql.DB).Exec" [ tooltip="at main.go:411: calling [(*database/sql.DB).Exec]" color="saddlebrown" ]
+    "Challenge.main" -> "Challenge.Certificados" [ tooltip="at main.go:343: calling [Challenge.Certificados]" ]
+    "Challenge.CrearTablaDatos$1" -> "(*database/sql.DB).Close" [ color="saddlebrown" tooltip="at main.go:383: calling [(*database/sql.DB).Close]" ]
+    "Challenge.RemoverCaracteresEspeciales" -> "(*regexp.Regexp).ReplaceAllString" [ color="saddlebrown" tooltip="at main.go:169: calling [(*regexp.Regexp).ReplaceAllString]" ]
+    "Challenge.ObtenerDatos$1" -> "(*net/http.http2gzipReader).Close" [ style="dashed" color="saddlebrown" tooltip="at main.go:371: calling [(*net/http.http2gzipReader).Close]" ]
+    "Challenge.CrearTablaUsuarios" -> "(*database/sql.DB).Query" [ color="saddlebrown" tooltip="at main.go:432: calling [(*database/sql.DB).Query]" ]
+    "Challenge.authMiddleware$1$1" -> "fmt.Errorf" [ color="saddlebrown" tooltip="at main.go:258: calling [fmt.Errorf]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "Challenge.Err" [ tooltip="at main.go:545: calling [Challenge.Err]\nat main.go:549: calling [Challenge.Err]" ]
+    "(net/http.HandlerFunc).ServeHTTP" -> "Challenge.authMiddleware$1" [ tooltip="at server.go:2122: calling [Challenge.authMiddleware$1]" style="dashed" color="saddlebrown" ]
+    "Challenge.whitelistMiddleware$1" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:297: calling [net/http.Error]" ]
+    "Challenge.main" -> "(*github.com/gorilla/mux.Router).HandleFunc" [ color="saddlebrown" tooltip="at main.go:349: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:350: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:351: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:352: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:353: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:354: calling [(*github.com/gorilla/mux.Router).HandleFunc]\nat main.go:355: calling [(*github.com/gorilla/mux.Router).HandleFunc]" ]
+    "Challenge.GenerarSessionCookie" -> "Challenge.Err" [ tooltip="at main.go:176: calling [Challenge.Err]" ]
+    "Challenge.Informacion" -> "Challenge.Err" [ tooltip="at main.go:662: calling [Challenge.Err]\nat main.go:667: calling [Challenge.Err]" ]
+    "Challenge.ObtenerDatos$1" -> "(*crypto/tls.Conn).Close" [ color="saddlebrown" tooltip="at main.go:371: calling [(*crypto/tls.Conn).Close]" style="dashed" ]
+    "Challenge.CrearTablaUsuarios" -> "log.Printf" [ color="saddlebrown" tooltip="at main.go:440: calling [log.Printf]\nat main.go:447: calling [log.Printf]\nat main.go:452: calling [log.Printf]" ]
+    "Challenge.InsertarDatos" -> "Challenge.InsertarDatos$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:561: calling [Challenge.InsertarDatos$1]" ]
+    "Challenge.CreateUser" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:482: calling [net/http.Error]" ]
+    "Challenge.CreateUser" -> "log.Println" [ color="saddlebrown" tooltip="at main.go:483: calling [log.Println]\nat main.go:469: calling [log.Println]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "Challenge.RemoverCaracteresEspeciales" [ tooltip="at main.go:538: calling [Challenge.RemoverCaracteresEspeciales]" ]
+    "Challenge.Login" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:232: calling [net/http.Error]" ]
+    "Challenge.CreateUser" -> "(*database/sql.DB).Exec" [ color="saddlebrown" tooltip="at main.go:475: calling [(*database/sql.DB).Exec]" ]
+    "Challenge.Inicio" -> "Challenge.Err" [ tooltip="at main.go:614: calling [Challenge.Err]\nat main.go:618: calling [Challenge.Err]" ]
+    "Challenge.CrearTablaUsuarios" -> "Challenge.CrearTablaUsuarios$1" [ arrowhead="normalnoneodiamond" tooltip="at main.go:416: calling [Challenge.CrearTablaUsuarios$1]" ]
+    "Challenge.Certificados" -> "path/filepath.Join" [ color="saddlebrown" tooltip="at main.go:777: calling [path/filepath.Join]\nat main.go:778: calling [path/filepath.Join]" ]
+    "Challenge.main" -> "net/http.ListenAndServe" [ color="saddlebrown" tooltip="at main.go:364: calling [net/http.ListenAndServe]" ]
+    "Challenge.ConsultarTablaUsuarios" -> "strconv.Itoa" [ color="saddlebrown" tooltip="at main.go:554: calling [strconv.Itoa]" ]
+    "Challenge.whitelistMiddleware$1" -> "Challenge.VerificarIPenWhiteList" [ tooltip="at main.go:296: calling [Challenge.VerificarIPenWhiteList]" ]
+    "Challenge.Login" -> "(*net/http.Request).FormValue" [ color="saddlebrown" tooltip="at main.go:207: calling [(*net/http.Request).FormValue]\nat main.go:208: calling [(*net/http.Request).FormValue]\nat main.go:209: calling [(*net/http.Request).FormValue]" ]
+    "Challenge.ViewUser" -> "net/http.Error" [ color="saddlebrown" tooltip="at main.go:509: calling [net/http.Error]" ]
+    "Challenge.ObtenerDatos" -> "encoding/json.Unmarshal" [ color="saddlebrown" tooltip="at main.go:377: calling [encoding/json.Unmarshal]" ]
+    "Challenge.InsertarDatos" -> "Challenge.Hash" [ tooltip="at main.go:574: calling [Challenge.Hash]\nat main.go:575: calling [Challenge.Hash]" ]
+    "Challenge.main$2" -> "Challenge.whitelistMiddleware" [ tooltip="at main.go:358: calling [Challenge.whitelistMiddleware]" ]
+}

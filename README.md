@@ -5,7 +5,7 @@
 Se ha desarrollado una API en lenguaje Go que se encarga de obtener información de clientes desde un proveedor externo. Esta API procesa y trata los datos para generar disponibilidad, permitiendo que la información sea accesible para los distintos sectores dentro de la empresa, garantizando un acceso controlado y eficiente al contenido.
 
 ![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/Diagrama%20-%20Arquitectura.png)
-
+![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/Diagrama.png)
 ### Pasos Iniciales:
 ------
 #### Entorno Windows con Docker

@@ -24,6 +24,57 @@ import (
 	"time"
 )
 
+var (
+	host                      = os.Getenv("host")
+	port                      = os.Getenv("port")
+	user                      = os.Getenv("user")
+	password                  = os.Getenv("passworddb")
+	dbname                    = os.Getenv("dbname")
+	passwordadmin             = os.Getenv("passadministrator")
+	changepass                = os.Getenv("changepass")
+	jwtkey                    = []byte(os.Getenv("jwtkey"))
+	psqlInfo                  = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	useradmin                 = "administrator"
+	jsonview                  []Jsonview
+	data                      []Data
+	table                     = Table{}
+	userview                  = User{}
+	userviewtable             []User
+	arraytable                []Table
+	arraytable2               []Table
+	url                       = "https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios"
+	tmpl                      = template.Must(template.ParseGlob("template/*"))
+	ID                        int
+	FecAlta                   string
+	UserName                  string
+	CodigoZip                 string
+	CreditCardNum             string
+	HashCreditCardNum         string
+	CreditCardCcv             string
+	HashCreditCardCcv         string
+	CuentaNumero              string
+	Direccion                 string
+	GeoLatitud                string
+	GeoLongitud               string
+	ColorFavorito             string
+	FotoDni                   string
+	Ip                        string
+	Auto                      string
+	AutoModelo                string
+	AutoTipo                  string
+	AutoColor                 string
+	CantidadComprasRealizadas int
+	Avatar                    string
+	FecBirthday               string
+	userSecrets               = make(map[string]string)
+	filePathKEY               string
+	filePathCERT              string
+	whitelist                 []string
+	TokenMFA                  string
+	Rol                       int
+	RolClaim                  string
+)
+
 type Data struct {
 	FecAlta                   string    `json:"fec_alta"`
 	UserName                  string    `json:"user_name"`
@@ -87,57 +138,6 @@ type User struct {
 	TokenMFA string
 	Rol      int
 }
-
-var (
-	host                      = os.Getenv("host")
-	port                      = os.Getenv("port")
-	user                      = os.Getenv("user")
-	password                  = os.Getenv("passworddb")
-	dbname                    = os.Getenv("dbname")
-	passwordadmin             = os.Getenv("passadministrator")
-	changepass                = os.Getenv("changepass")
-	jwtkey                    = []byte(os.Getenv("jwtkey"))
-	psqlInfo                  = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	useradmin                 = "administrator"
-	jsonview                  []Jsonview
-	data                      []Data
-	table                     = Table{}
-	userview                  = User{}
-	userviewtable             []User
-	arraytable                []Table
-	arraytable2               []Table
-	url                       = "https://62433a7fd126926d0c5d296b.mockapi.io/api/v1/usuarios"
-	tmpl                      = template.Must(template.ParseGlob("template/*"))
-	ID                        int
-	FecAlta                   string
-	UserName                  string
-	CodigoZip                 string
-	CreditCardNum             string
-	HashCreditCardNum         string
-	CreditCardCcv             string
-	HashCreditCardCcv         string
-	CuentaNumero              string
-	Direccion                 string
-	GeoLatitud                string
-	GeoLongitud               string
-	ColorFavorito             string
-	FotoDni                   string
-	Ip                        string
-	Auto                      string
-	AutoModelo                string
-	AutoTipo                  string
-	AutoColor                 string
-	CantidadComprasRealizadas int
-	Avatar                    string
-	FecBirthday               string
-	userSecrets               = make(map[string]string)
-	filePathKEY               string
-	filePathCERT              string
-	whitelist                 []string
-	TokenMFA                  string
-	Rol                       int
-	RolClaim                  string
-)
 
 func Err(err2 error) {
 	if err2 != nil {
@@ -235,8 +235,6 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 	}
 	_ = tmpl.ExecuteTemplate(writer, "login", nil)
 }
-
-//goland:noinspection ALL
 func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 
@@ -325,12 +323,10 @@ func VerificarOTP(secretKey, otpCode string) bool {
 	log.Println("OTP Valido")
 	return true
 }
-
 func redirectToHttps(writer http.ResponseWriter, request *http.Request) {
 	http.Redirect(writer, request, "https://localhost:443"+request.RequestURI, http.StatusMovedPermanently)
 	log.Println("Redireccion a HTTPS")
 }
-
 func main() {
 
 	file, err := os.OpenFile("events.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
@@ -368,7 +364,6 @@ func main() {
 	_ = http.ListenAndServe(":80", http.HandlerFunc(redirectToHttps))
 
 }
-
 func ObtenerDatos() {
 	resp, err := http.Get(url)
 	Err(err)
