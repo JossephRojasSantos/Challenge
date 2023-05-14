@@ -26,7 +26,7 @@ Se ha desarrollado una API en lenguaje Go que se encarga de obtener información
 * ENV dbname=[dbname]-> Definido en el punto 3
 * ENV passwordadmin=[passadmin]-> Contraseña en sha512
 * ENV changepass=1-> Cuando se encuentra con valor 0, cambia la contraseña de passwordadmin 
-* ENV jwtkey=[jwtkey]-> Contaseña para la firma de token de sesión
+* ENV jwtkey=[jwtkey]-> Contraseña para la firma de token de sesión
 
 ![](https://github.com/JossephRojasSantos/Challenge/blob/main/png/ENVDockerFile.png)
 
@@ -47,7 +47,7 @@ docker run -p 8080:8080 -p 443:443 -p 80:80 servidor:Challenge
 3. Crear Base de Datos **[dbname]**
 4. Generar usuario de lectura y escritura en la base de datos **[dbname]** creada en el punto 3 **[user][pass]**
 5. Descargar e instalar Go -> [GO](https://dl.google.com/go/go1.20.4.windows-amd64.msi)
-6. Comprobar instalacion de Go (desde un CMD ejecutar "go version", retorno de la consola -> go version go1.20.4 windows/amd64)
+6. Comprobar instalación de Go (desde un CMD ejecutar "go version", retorno de la consola -> go version go1.20.4 windows/amd64)
 7. Crear las siguiente variables de entorno:
 
 * host=localhost
@@ -56,7 +56,7 @@ docker run -p 8080:8080 -p 443:443 -p 80:80 servidor:Challenge
 * passworddb=[pass]-> Definido en el punto 4
 * dbname=[dbname]-> Definido en el punto 3
 * passwordadmin=[passadmin]-> Contraseña en sha512
-* jwtkey=[jwtkey]-> Contaseña para la firma de token de sesión
+* jwtkey=[jwtkey]-> Contraseña para la firma de token de sesión
 * Changepass=1 -> Cuando se encuentra con valor 0, cambia la contraseña de passwordadmin 
 
 
@@ -90,13 +90,13 @@ Rol de solo lectura con capacidad para visualizar los datos externos consumidos.
 * OTP= (Informado por el administrador)
 
 ------
-#### Desarrollado o API
+#### Desarrollador o API
 
-Rol de solo lectura con capacidad para visualizar los datos externos consumidos. Este usuario obtiene los datos en formato JSON bajo la sigueinte URL:
+Rol de solo lectura con capacidad para visualizar los datos externos consumidos. Este usuario obtiene los datos en formato JSON bajo la siguiente URL:
 
 ```html
 https://localhost:8080/json?username=[usuario]&token=[token]
 ```
 
-* [token]= (Metodo de atenticacion (JWT) informado por el administrador, utiliza el parametro jwtkey definida en las variable de entorno)
+* [token]= (Método de autenticación (JWT) informado por el administrador, utiliza el parámetro jwtkey definida en las variable de entorno)
 * [usuario]= (Datos de usuario a consultar)
