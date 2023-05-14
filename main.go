@@ -18,6 +18,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"text/template"
 	"time"
@@ -135,6 +136,7 @@ var (
 	whitelist                 []string
 	TokenMFA                  string
 	Rol                       int
+	RolClaim                  string
 )
 
 func Err(err2 error) {
@@ -168,9 +170,9 @@ func RemoverCaracteresEspeciales(input string) (output string) {
 	log.Println("Removiendo Caracteres Especiales")
 	return output
 }
-func GenerarSessionCookie(s string) (*http.Cookie, error) {
+func GenerarSessionCookie(s string, r string) (*http.Cookie, error) {
 
-	value, err := GenerarTokenJWT(s)
+	value, err := GenerarTokenJWT(s, r)
 	Err(err)
 	cookie := &http.Cookie{
 		Name:     "Authorization",
@@ -185,13 +187,14 @@ func GenerarSessionCookie(s string) (*http.Cookie, error) {
 	log.Println("Cookie Generada")
 	return cookie, nil
 }
-func GenerarTokenJWT(username string) (string, error) {
+func GenerarTokenJWT(username string, rol string) (string, error) {
 	// Crear un nuevo token JWT
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	// Configurar los claims (datos del usuario)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["username"] = username
+	claims["role"] = rol
 	claims["exp"] = time.Now().Add(15 * time.Minute).Unix()
 
 	tokenString, err := token.SignedString(jwtkey)
@@ -206,17 +209,25 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 		mfa := request.FormValue("mfa")
 		log.Printf("Usuario Ingresado: %s", username)
 		passwordhash := Hash(password)
-		passwordhashdb, tokenMFA := ConsultarTablaUsuarios(username)
+		passwordhashdb, tokenMFA, roluser := ConsultarTablaUsuarios(username)
 
-		valid := VerificarOTP(tokenMFA, mfa)
+		validoOTP := VerificarOTP(tokenMFA, mfa)
 
-		if (passwordhash == passwordhashdb) && valid {
-			cookie, err := GenerarSessionCookie(username)
-			http.SetCookie(writer, cookie)
-			Err(err)
-			http.Redirect(writer, request, "/inicio", http.StatusSeeOther)
-			log.Printf("Inicio de Sesion Correcto de: %s", username)
-			return
+		if (passwordhash == passwordhashdb) && validoOTP {
+			cookie, err := GenerarSessionCookie(username, roluser)
+			if roluser == "1" {
+				http.SetCookie(writer, cookie)
+				Err(err)
+				http.Redirect(writer, request, "/viewuser", http.StatusSeeOther)
+				log.Printf("Inicio de Sesion Correcto de: %s", username)
+				return
+			} else if roluser == "3" {
+				http.SetCookie(writer, cookie)
+				Err(err)
+				http.Redirect(writer, request, "/inicio", http.StatusSeeOther)
+				log.Printf("Inicio de Sesion Correcto de: %s", username)
+				return
+			}
 		}
 		http.Error(writer, "Nombre de usuario, contraseña o token incorrectos", http.StatusUnauthorized)
 		log.Println("Nombre de usuario, contraseña o token incorrectos")
@@ -263,15 +274,26 @@ func authMiddleware(next http.Handler) http.Handler {
 				log.Println("Token JWT Invalido")
 				return
 			}
+			claims, ok := token.Claims.(jwt.MapClaims)
+			if !ok {
+				log.Println("No se pudo obtener el claim de rol")
+			}
+
+			RolClaim, ok = claims["role"].(string)
+			if !ok {
+				log.Println("No se pudo obtener el claim de rol")
+			}
+			log.Printf("Rol: %s", RolClaim)
 		}
 		// Si el usuario está autenticado, continuar con la siguiente ruta
 		next.ServeHTTP(writer, request)
+
 		log.Println("Siguiente Pagina")
 	})
 }
 func whitelistMiddleware(next http.Handler, whitelist []string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		remoteIP := getRemoteIP(r)
+		remoteIP := ObtenerIP(r)
 		log.Printf("IP Remota: %s", remoteIP)
 		if !VerificarIPenWhiteList(remoteIP, whitelist) {
 			http.Error(w, "Acceso no autorizado", http.StatusForbidden)
@@ -327,19 +349,15 @@ func main() {
 	r := mux.NewRouter()
 	r.Use(authMiddleware)
 	r2 := mux.NewRouter()
-	r3 := mux.NewRouter()
 
 	r.HandleFunc("/", Login)
 	r.HandleFunc("/inicio", Inicio)
 	r.HandleFunc("/info", Informacion)
 	r2.HandleFunc("/json", Json)
-	r3.HandleFunc("/viewuser", ViewUser)
-	r3.HandleFunc("/createuser", CreateUser)
-	r3.HandleFunc("/borrar", BorrarUser)
+	r.HandleFunc("/viewuser", ViewUser)
+	r.HandleFunc("/createuser", CreateUser)
+	r.HandleFunc("/borrar", BorrarUser)
 
-	go func() {
-		_ = http.ListenAndServeTLS(":8081", filePathCERT, filePathKEY, r3)
-	}()
 	go func() {
 		_ = http.ListenAndServeTLS(":8080", filePathCERT, filePathKEY, whitelistMiddleware(r2, whitelist))
 	}()
@@ -348,8 +366,6 @@ func main() {
 		_ = http.ListenAndServeTLS(":443", filePathCERT, filePathKEY, r)
 	}()
 	_ = http.ListenAndServe(":80", http.HandlerFunc(redirectToHttps))
-
-	//http.ListenAndServe(":80", r)
 
 }
 
@@ -445,66 +461,80 @@ func CrearTablaUsuarios() {
 
 }
 func CreateUser(writer http.ResponseWriter, request *http.Request) {
-	if request.Method == "POST" {
+	if RolClaim == "1" {
+		if request.Method == "POST" {
+			db := ConexionDB()
+			defer func(db *sql.DB) {
+				_ = db.Close()
+			}(db)
+			username := request.FormValue("username")
+			password := request.FormValue("password")
+			rol := request.FormValue("rol")
+			passwordhash := Hash(password)
+			log.Println("Insertando data en la tabla userdata")
+
+			tokenmfa, err := generateSecretKey(username)
+			Err(err)
+			query := fmt.Sprintf("INSERT INTO userdata (username,password,tokenmfa,rol) VALUES ('%s','%s','%s','%s')",
+				username, passwordhash, tokenmfa, rol)
+			_, err = db.Exec(query)
+			log.Printf("Creando: %s", username)
+			Err(err)
+
+		}
+		_ = tmpl.ExecuteTemplate(writer, "createuser", nil)
+	} else {
+		http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+		log.Println("Acceso no autorizado a la pagina Inicio")
+	}
+}
+func ViewUser(writer http.ResponseWriter, _ *http.Request) {
+	if RolClaim == "1" {
 		db := ConexionDB()
 		defer func(db *sql.DB) {
 			_ = db.Close()
 		}(db)
-		username := request.FormValue("username")
-		password := request.FormValue("password")
-		rol := request.FormValue("rol")
-		passwordhash := Hash(password)
-		log.Println("Insertando data en la tabla userdata")
+		log.Println("Consultando Usuarios")
 
-		tokenmfa, err := generateSecretKey(username)
+		userviewtable = nil
+		registros, err := db.Query("Select id,username,tokenmfa,rol  From userdata")
 		Err(err)
-		query := fmt.Sprintf("INSERT INTO userdata (username,password,tokenmfa,rol) VALUES ('%s','%s','%s','%s')",
-			username, passwordhash, tokenmfa, rol)
-		_, err = db.Exec(query)
-		log.Printf("Creando: %s", username)
-		Err(err)
+		for registros.Next() {
+			err = registros.Scan(&ID, &UserName, &TokenMFA, &Rol)
+			Err(err)
+			userview.IDuser = ID
+			userview.UserName = UserName
+			userview.TokenMFA = TokenMFA
+			userview.Rol = Rol
+			userviewtable = append(userviewtable, userview)
 
+		}
+		_ = tmpl.ExecuteTemplate(writer, "viewuser", userviewtable)
+	} else {
+		http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+		log.Println("Acceso no autorizado a la pagina Inicio")
 	}
-	_ = tmpl.ExecuteTemplate(writer, "createuser", nil)
 }
-func ViewUser(writer http.ResponseWriter, _ *http.Request) {
-	db := ConexionDB()
-	defer func(db *sql.DB) {
-		_ = db.Close()
-	}(db)
-	log.Println("Consultando Usuarios")
-
-	userviewtable = nil
-	registros, err := db.Query("Select id,username,tokenmfa,rol  From userdata")
-	Err(err)
-	for registros.Next() {
-		err = registros.Scan(&ID, &UserName, &TokenMFA, &Rol)
-		Err(err)
-		userview.IDuser = ID
-		userview.UserName = UserName
-		userview.TokenMFA = TokenMFA
-		userview.Rol = Rol
-		userviewtable = append(userviewtable, userview)
-
-	}
-
-	_ = tmpl.ExecuteTemplate(writer, "viewuser", userviewtable)
-
-}
-
 func BorrarUser(writer http.ResponseWriter, request *http.Request) {
-	idDato := request.URL.Query().Get("id")
-	usuarioborrado := request.URL.Query().Get("user")
-	db := ConexionDB()
-	defer func(db *sql.DB) {
-		_ = db.Close()
-	}(db)
-	_, err := db.Query("DELETE FROM userdata where id = $1", idDato)
-	Err(err)
-	log.Printf("Usuario %s Borrado", usuarioborrado)
-	http.Redirect(writer, request, "https://localhost:8081/viewuser", http.StatusMovedPermanently)
+	if RolClaim == "1" {
+		idDato := request.URL.Query().Get("id")
+		usuarioborrado := request.URL.Query().Get("user")
+		db := ConexionDB()
+		defer func(db *sql.DB) {
+			_ = db.Close()
+		}(db)
+		if idDato != "1" {
+			_, err := db.Query("DELETE FROM userdata where id = $1", idDato)
+			Err(err)
+			log.Printf("Usuario %s Borrado", usuarioborrado)
+			http.Redirect(writer, request, "https://localhost/viewuser", http.StatusMovedPermanently)
+		}
+	} else {
+		http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+		log.Println("Acceso no autorizado a la pagina Inicio")
+	}
 }
-func ConsultarTablaUsuarios(u string) (p string, t string) {
+func ConsultarTablaUsuarios(u string) (p string, t string, r string) {
 	db := ConexionDB()
 	defer func(db *sql.DB) {
 		_ = db.Close()
@@ -516,17 +546,19 @@ func ConsultarTablaUsuarios(u string) (p string, t string) {
 	var TokenMFA string
 
 	log.Printf("Obteniendo datos Pass y OTP de: %s", output)
-	row, err := db.Query("Select password,tokenmfa From userdata where username=$1", output)
+	row, err := db.Query("Select password,tokenmfa,rol From userdata where username=$1", output)
 	Err(err)
-	for row.Next() {
-		err := row.Scan(&PassUser, &TokenMFA)
-		Err(err)
-
+	if row != nil {
+		for row.Next() {
+			err := row.Scan(&PassUser, &TokenMFA, &Rol)
+			Err(err)
+		}
 	}
 	p = fmt.Sprintf(PassUser)
 	t = fmt.Sprintf(TokenMFA)
+	r = fmt.Sprintf(strconv.Itoa(Rol))
 
-	return p, t
+	return p, t, r
 }
 func InsertarDatos() {
 
@@ -577,90 +609,97 @@ func InsertarDatos() {
 
 }
 func Inicio(writer http.ResponseWriter, _ *http.Request) {
+	if RolClaim == "3" {
+		db := ConexionDB()
+		defer func(db *sql.DB) {
+			_ = db.Close()
+		}(db)
 
-	db := ConexionDB()
-	defer func(db *sql.DB) {
-		_ = db.Close()
-	}(db)
-
-	registros, err := db.Query("Select * From datos")
-	Err(err)
-	log.Println("Pagina de Inicio")
-	for registros.Next() {
-		err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
+		registros, err := db.Query("Select * From datos")
 		Err(err)
-		table.ID = ID
-		table.FecAlta = FecAlta
-		table.UserName = UserName
-		table.CodigoZip = CodigoZip
-		table.CreditCardNum = CreditCardNum
-		table.HashCreditCardNum = HashCreditCardNum
-		table.CreditCardCcv = CreditCardCcv
-		table.HashCreditCardCcv = HashCreditCardCcv
-		table.CuentaNumero = CuentaNumero
-		table.Direccion = Direccion
-		table.GeoLatitud = GeoLatitud
-		table.GeoLongitud = GeoLongitud
-		table.ColorFavorito = ColorFavorito
-		table.FotoDni = FotoDni
-		table.Ip = Ip
-		table.Auto = Auto
-		table.AutoModelo = AutoModelo
-		table.AutoTipo = AutoTipo
-		table.AutoColor = AutoColor
-		table.CantidadComprasRealizadas = CantidadComprasRealizadas
-		table.Avatar = Avatar
-		table.FecBirthday = FecBirthday
+		log.Println("Pagina de Inicio")
+		for registros.Next() {
+			err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
+			Err(err)
+			table.ID = ID
+			table.FecAlta = FecAlta
+			table.UserName = UserName
+			table.CodigoZip = CodigoZip
+			table.CreditCardNum = CreditCardNum
+			table.HashCreditCardNum = HashCreditCardNum
+			table.CreditCardCcv = CreditCardCcv
+			table.HashCreditCardCcv = HashCreditCardCcv
+			table.CuentaNumero = CuentaNumero
+			table.Direccion = Direccion
+			table.GeoLatitud = GeoLatitud
+			table.GeoLongitud = GeoLongitud
+			table.ColorFavorito = ColorFavorito
+			table.FotoDni = FotoDni
+			table.Ip = Ip
+			table.Auto = Auto
+			table.AutoModelo = AutoModelo
+			table.AutoTipo = AutoTipo
+			table.AutoColor = AutoColor
+			table.CantidadComprasRealizadas = CantidadComprasRealizadas
+			table.Avatar = Avatar
+			table.FecBirthday = FecBirthday
 
-		arraytable = append(arraytable, table)
+			arraytable = append(arraytable, table)
 
+		}
+
+		_ = tmpl.ExecuteTemplate(writer, "inicio", arraytable)
+	} else {
+		http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+		log.Println("Acceso no autorizado a la pagina Inicio")
 	}
-
-	_ = tmpl.ExecuteTemplate(writer, "inicio", arraytable)
-
 }
 func Informacion(writer http.ResponseWriter, request *http.Request) {
-	idDato := request.URL.Query().Get("id")
+	if RolClaim == "3" {
+		idDato := request.URL.Query().Get("id")
 
-	db := ConexionDB()
-	defer func(db *sql.DB) {
-		_ = db.Close()
-	}(db)
+		db := ConexionDB()
+		defer func(db *sql.DB) {
+			_ = db.Close()
+		}(db)
 
-	registros, err := db.Query("Select * From datos where id = $1", idDato)
-	Err(err)
-	arraytable2 = nil
-	log.Println("Pagina de Informacion")
-	for registros.Next() {
-		err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
+		registros, err := db.Query("Select * From datos where id = $1", idDato)
 		Err(err)
-		table.ID = ID
-		table.FecAlta = FecAlta
-		table.UserName = UserName
-		table.CodigoZip = CodigoZip
-		table.HashCreditCardNum = HashCreditCardNum
-		table.CreditCardCcv = CreditCardCcv
-		table.HashCreditCardCcv = HashCreditCardCcv
-		table.CuentaNumero = CuentaNumero
-		table.Direccion = Direccion
-		table.GeoLatitud = GeoLatitud
-		table.GeoLongitud = GeoLongitud
-		table.ColorFavorito = ColorFavorito
-		table.FotoDni = FotoDni
-		table.Ip = Ip
-		table.Auto = Auto
-		table.AutoModelo = AutoModelo
-		table.AutoTipo = AutoTipo
-		table.AutoColor = AutoColor
-		table.CantidadComprasRealizadas = CantidadComprasRealizadas
-		table.Avatar = Avatar
-		table.FecBirthday = FecBirthday
+		arraytable2 = nil
+		log.Println("Pagina de Informacion")
+		for registros.Next() {
+			err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
+			Err(err)
+			table.ID = ID
+			table.FecAlta = FecAlta
+			table.UserName = UserName
+			table.CodigoZip = CodigoZip
+			table.HashCreditCardNum = HashCreditCardNum
+			table.CreditCardCcv = CreditCardCcv
+			table.HashCreditCardCcv = HashCreditCardCcv
+			table.CuentaNumero = CuentaNumero
+			table.Direccion = Direccion
+			table.GeoLatitud = GeoLatitud
+			table.GeoLongitud = GeoLongitud
+			table.ColorFavorito = ColorFavorito
+			table.FotoDni = FotoDni
+			table.Ip = Ip
+			table.Auto = Auto
+			table.AutoModelo = AutoModelo
+			table.AutoTipo = AutoTipo
+			table.AutoColor = AutoColor
+			table.CantidadComprasRealizadas = CantidadComprasRealizadas
+			table.Avatar = Avatar
+			table.FecBirthday = FecBirthday
 
-		arraytable2 = append(arraytable2, table)
+			arraytable2 = append(arraytable2, table)
 
+		}
+		_ = tmpl.ExecuteTemplate(writer, "info", arraytable2)
+	} else {
+		http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+		log.Println("Acceso no autorizado a la pagina Información")
 	}
-
-	_ = tmpl.ExecuteTemplate(writer, "info", arraytable2)
 }
 func Json(writer http.ResponseWriter, request *http.Request) {
 	idDatoUser := request.URL.Query().Get("username")
@@ -671,7 +710,7 @@ func Json(writer http.ResponseWriter, request *http.Request) {
 		_, _ = fmt.Fprintf(writer, "%s", "nulo")
 
 	} else {
-		token, err := jwt.Parse(idDatoToken, func(token *jwt.Token) (interface{}, error) {
+		tokenDesarrollo, err := jwt.Parse(idDatoToken, func(token *jwt.Token) (interface{}, error) {
 			log.Println("Verificando")
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("método de firma inválido: %v", token.Header["alg"])
@@ -684,44 +723,58 @@ func Json(writer http.ResponseWriter, request *http.Request) {
 			log.Println("Valor Invalido en la Variable Token")
 			return
 		}
-		if token.Valid {
-			log.Println("Valor Invalido en la Variable Token")
-
-			output := RemoverCaracteresEspeciales(idDatoUser)
-
-			db := ConexionDB()
-			defer func(db *sql.DB) {
-				_ = db.Close()
-			}(db)
-
-			registros, err := db.Query("Select * From datos where username = $1", output)
-			Err(err)
-			defer func(registros *sql.Rows) {
-				_ = registros.Close()
-			}(registros)
-
-			jsonview = nil
-
-			for registros.Next() {
-				err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
-				Err(err)
-				jsonview = append(jsonview, Jsonview{FecAlta: FecAlta,
-					UserName:                  UserName,
-					HashcreditcardnumSha512:   HashCreditCardNum,
-					HashcreditcardccvSha512:   HashCreditCardCcv,
-					CuentaNumero:              CuentaNumero,
-					GeoLatitud:                GeoLatitud,
-					GeoLongitud:               GeoLongitud,
-					Ip:                        Ip,
-					CantidadComprasRealizadas: CantidadComprasRealizadas})
-
+		if tokenDesarrollo.Valid {
+			claims, ok := tokenDesarrollo.Claims.(jwt.MapClaims)
+			if !ok {
+				log.Println("No se pudo obtener el claim de rol")
 			}
-			jsonData, err := json.Marshal(jsonview)
-			Err(err)
-			_, _ = fmt.Fprintf(writer, "%s", jsonData)
-		}
 
+			RolClaim, ok = claims["role"].(string)
+			if !ok {
+				log.Println("No se pudo obtener el claim de rol")
+			}
+			log.Printf("Rol: %s", RolClaim)
+			if RolClaim == "2" || RolClaim == "1" {
+
+				output := RemoverCaracteresEspeciales(idDatoUser)
+
+				db := ConexionDB()
+				defer func(db *sql.DB) {
+					_ = db.Close()
+				}(db)
+
+				registros, err := db.Query("Select * From datos where username = $1", output)
+				Err(err)
+				defer func(registros *sql.Rows) {
+					_ = registros.Close()
+				}(registros)
+
+				jsonview = nil
+
+				for registros.Next() {
+					err = registros.Scan(&ID, &FecAlta, &UserName, &CodigoZip, &CreditCardNum, &HashCreditCardNum, &CreditCardCcv, &HashCreditCardCcv, &CuentaNumero, &Direccion, &GeoLatitud, &GeoLongitud, &ColorFavorito, &FotoDni, &Ip, &Auto, &AutoModelo, &AutoTipo, &AutoColor, &CantidadComprasRealizadas, &Avatar, &FecBirthday)
+					Err(err)
+					jsonview = append(jsonview, Jsonview{FecAlta: FecAlta,
+						UserName:                  UserName,
+						HashcreditcardnumSha512:   HashCreditCardNum,
+						HashcreditcardccvSha512:   HashCreditCardCcv,
+						CuentaNumero:              CuentaNumero,
+						GeoLatitud:                GeoLatitud,
+						GeoLongitud:               GeoLongitud,
+						Ip:                        Ip,
+						CantidadComprasRealizadas: CantidadComprasRealizadas})
+
+				}
+				jsonData, err := json.Marshal(jsonview)
+				Err(err)
+				_, _ = fmt.Fprintf(writer, "%s", jsonData)
+			}
+		} else {
+			http.Error(writer, "401 Unauthorized", http.StatusUnauthorized)
+			log.Println("Acceso no autorizado a la pagina Inicio")
+		}
 	}
+
 }
 func Certificados() {
 	currentDir, err := os.Getwd()
@@ -730,7 +783,7 @@ func Certificados() {
 	filePathCERT = filepath.Join(currentDir, "/certificados/certbundle.pem")
 
 }
-func getRemoteIP(r *http.Request) string {
+func ObtenerIP(r *http.Request) string {
 	forwardedFor := r.Header.Get("X-Forwarded-For")
 	if forwardedFor != "" {
 		return strings.Split(forwardedFor, ",")[0]
