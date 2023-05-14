@@ -338,7 +338,7 @@ func main() {
 	defer func(file *os.File) {
 		_ = file.Close()
 	}(file)
-	//log.SetOutput(file)
+	log.SetOutput(file)
 
 	ObtenerDatos()
 	CrearTablaUsuarios()
