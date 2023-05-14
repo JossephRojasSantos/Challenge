@@ -350,9 +350,9 @@ func main() {
 	r.HandleFunc("/inicio", Inicio)
 	r.HandleFunc("/info", Informacion)
 	r2.HandleFunc("/json", Json)
-	r.HandleFunc("/viewuser", ViewUser)
-	r.HandleFunc("/createuser", CreateUser)
-	r.HandleFunc("/borrar", BorrarUser)
+	r.HandleFunc("/viewuser", VerUsuario)
+	r.HandleFunc("/createuser", CrearUsuario)
+	r.HandleFunc("/borrar", BorrarUsuario)
 
 	go func() {
 		_ = http.ListenAndServeTLS(":8080", filePathCERT, filePathKEY, whitelistMiddleware(r2, whitelist))
@@ -455,7 +455,7 @@ func CrearTablaUsuarios() {
 	}
 
 }
-func CreateUser(writer http.ResponseWriter, request *http.Request) {
+func CrearUsuario(writer http.ResponseWriter, request *http.Request) {
 	if RolClaim == "1" {
 		if request.Method == "POST" {
 			db := ConexionDB()
@@ -483,7 +483,7 @@ func CreateUser(writer http.ResponseWriter, request *http.Request) {
 		log.Println("Acceso no autorizado a la pagina Inicio")
 	}
 }
-func ViewUser(writer http.ResponseWriter, _ *http.Request) {
+func VerUsuario(writer http.ResponseWriter, _ *http.Request) {
 	if RolClaim == "1" {
 		db := ConexionDB()
 		defer func(db *sql.DB) {
@@ -510,7 +510,7 @@ func ViewUser(writer http.ResponseWriter, _ *http.Request) {
 		log.Println("Acceso no autorizado a la pagina Inicio")
 	}
 }
-func BorrarUser(writer http.ResponseWriter, request *http.Request) {
+func BorrarUsuario(writer http.ResponseWriter, request *http.Request) {
 	if RolClaim == "1" {
 		idDato := request.URL.Query().Get("id")
 		usuarioborrado := request.URL.Query().Get("user")
