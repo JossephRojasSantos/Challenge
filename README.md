@@ -31,7 +31,7 @@ Se ha desarrollado una API en lenguaje Go que se encarga de obtener información
 ```docker
 docker build -t servidor:Challenge .
 ```
-```javascript
+```docker
 docker run -p 8080:8080 -p 443:443 -p 80:80 servidor:Challenge
 ```
 9. Ingresamos en Docker Desktop y verificamos que en **Containers** nuestra imagen tenga estado **Running**
