@@ -12,16 +12,16 @@ Se ha desarrollado una API en lenguaje Go que se encarga de obtener información
 ------
 #### Entorno Windows con Docker
 
-1. Descargar e instalar PostgresSQL ->  [PostgresSQL](https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe)
+1. Descargar e instalar PostgreSQL ->  [PostgreSQL](https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe)
 2. Confirmar puerto de servicio **[port]**
 3. Crear Base de Datos **[dbname]**
 4. Generar usuario de lectura y escritura en la base de datos *[dbname]* creada en el punto 3 **[user][pass]**
 5. Descargar e instalar Docker -> [Docker](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)
 6. Modificar la sección **IPv4 local connections:** del archivo **pg_hba.conf** de la base de datos, ingresando la IP de Origen definida en el Contenedor.
-7. Reiniciar servicio de PostgresSQL. 
+7. Reiniciar servicio de PostgreSQL. 
 8. Ingresar los siguientes datos de variables de entorno **ENV** ubicadas en el archivo **Dockerfile**
 
-* ENV host=[IP del equipo donde se ejecuta el servicio PostgresSQL]
+* ENV host=[IP del equipo donde se ejecuta el servicio PostgreSQL]
 * ENV port=[port]-> Definido en el punto 2
 * ENV user=[user]-> Definido en el punto 4
 * ENV passworddb=[pass]-> Definido en el punto 4
@@ -44,7 +44,7 @@ docker run -p 8080:8080 -p 443:443 -p 80:80 servidor:Challenge
 ------
 #### Entorno Windows sin Docker
 
-1. Descargar e instalar PostgresSQL ->  [PostgresSQL](https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe)
+1. Descargar e instalar PostgreSQL ->  [PostgreSQL](https://get.enterprisedb.com/postgresql/postgresql-10.23-1-windows.exe)
 2. Confirmar puerto de servicio **[port]**
 3. Crear Base de Datos **[dbname]**
 4. Generar usuario de lectura y escritura en la base de datos **[dbname]** creada en el punto 3 **[user][pass]**
