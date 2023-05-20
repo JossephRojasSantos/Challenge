@@ -334,7 +334,7 @@ func main() {
 	defer func(file *os.File) {
 		_ = file.Close()
 	}(file)
-	log.SetOutput(file)
+	//log.SetOutput(file)
 
 	ObtenerDatos()
 	CrearTablaUsuarios()
@@ -512,14 +512,18 @@ func VerUsuario(writer http.ResponseWriter, _ *http.Request) {
 }
 func BorrarUsuario(writer http.ResponseWriter, request *http.Request) {
 	if RolClaim == "1" {
-		idDato := request.URL.Query().Get("id")
+		id := request.URL.Query().Get("id")
+		idDato := RemoverCaracteresEspeciales(id)
 		usuarioborrado := request.URL.Query().Get("user")
 		db := ConexionDB()
 		defer func(db *sql.DB) {
 			_ = db.Close()
 		}(db)
 		if idDato != "1" {
-			_, err := db.Query("DELETE FROM userdata where id = $1", idDato)
+			//_, err := db.Query("DELETE FROM userdata where id = $1", idDato)
+			query := "DELETE FROM userdata where id = $1"
+			_, err := db.Query(query, idDato)
+
 			Err(err)
 			log.Printf("Usuario %s Borrado", usuarioborrado)
 			http.Redirect(writer, request, "https://localhost/viewuser", http.StatusMovedPermanently)
@@ -541,7 +545,9 @@ func ConsultarTablaUsuarios(u string) (p string, t string, r string) {
 	var TokenMFA string
 
 	log.Printf("Obteniendo datos Pass y OTP de: %s", output)
-	row, err := db.Query("Select password,tokenmfa,rol From userdata where username=$1", output)
+	//row, err := db.Query("Select password,tokenmfa,rol From userdata where username=$1", output)
+	query := "Select password,tokenmfa,rol From userdata where username=$1"
+	row, err := db.Query(query, output)
 	Err(err)
 	if row != nil {
 		for row.Next() {
@@ -658,7 +664,9 @@ func Informacion(writer http.ResponseWriter, request *http.Request) {
 			_ = db.Close()
 		}(db)
 
-		registros, err := db.Query("Select * From datos where id = $1", idDato)
+		//registros, err := db.Query("Select * From datos where id = $1", idDato)
+		query := "Select * From datos where id =  $1"
+		registros, err := db.Query(query, idDato)
 		Err(err)
 		arraytable2 = nil
 		log.Println("Pagina de Informacion")
@@ -738,7 +746,9 @@ func Json(writer http.ResponseWriter, request *http.Request) {
 					_ = db.Close()
 				}(db)
 
-				registros, err := db.Query("Select * From datos where username = $1", output)
+				//registros, err := db.Query("Select * From datos where username = $1", output)
+				query := "Select * From datos where username =  $1"
+				registros, err := db.Query(query, output)
 				Err(err)
 				defer func(registros *sql.Rows) {
 					_ = registros.Close()
